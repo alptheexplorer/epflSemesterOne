@@ -2,13 +2,24 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{tcolorbox}
+\usepackage{amssymb}
+\usepackage[
+top    = 2.50cm,
+bottom = 2.50cm,
+left   = 2.75cm,
+right  = 2.75cm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Linear algebra basics}
+\rhead{EPFL/Alp Ozen}
 
-\addtolength{\topmargin}{-1.0in}
+\newtheorem{thm}{Theorem}
 
 
 \title{Linear Algebra 1}
 \author{alp.ozen}
 \date{September 2019}
+\newtheorem{theorem}{Theorem}[section]
 
 \begin{document}
 
@@ -37,7 +48,7 @@ In general, a system will have:
 \end{itemize}
 \\
 
-We may choose to represent a system of linear equations as an \textit{augmented matrix}. A matrix is called n$x$m if it is of form:
+We may choose to represent a system of linear equations as an \textit{augmented matrix}. A matrix is called n$\times$m if it is of form:
 \begin{equation*}
     \begin{bmatrix}
     a_{11} && a{12} &&  ... \\
@@ -59,6 +70,76 @@ In solving a system, we use the elementary row operations which are:
     \item Multiply a row (or column) by a non-zero number and add the result to another row (or column).
 \end{itemize}
 \end{tcolorbox}
+
+Our goal is to transform our matrix into echelon or row reduced echelon form. A matrix is in echelon form if it looks like this: \begin{equation*}
+\begin{bmatrix}
+    \blacktriangledown &&  \blacktriangle && \blacktriangle \\
+    0 && \blacktriangledown && \blacktriangle \\
+    0 && 0 && \blacktriangledown
+
+\end{bmatrix}
+    
+\end{equation*}
+
+Here, each $\blacktriangledown$ and $\blacktriangle$ may take on any value from the set the vector space is defined on. 
+\\
+
+To obtain this form, we first arrange our matrix into a form where the row with the least amount of trailing zeros is placed uptop. Then we ensure the \textit{pivot position}(meaning first non-zero entry) has only 0 in its own column. When done, we move on the second row, find the pivot position and repeat. We repeat this process for all rows. 
+\\
+
+If we have a system where the number of unknowns exceeds the number of equations, we obtain a parametric solution. Consider this: 
+
+\begin{example}
+\begin{equation*}
+  \begin{bmatrix}
+    1 && 0 &&  -5 && 1 \\
+    0 && 1 && 1 && 4 \\
+    0 && 0  && 0 && 0 \\
+    \end{bmatrix}
+\end{equation*}
+
+Which means: 
+$$ x_{1} - 5x_{3} = 1$$
+$$ x_{2} +  x_{3} = 4$$
+
+Now, we can express both $x_{1}$ and $x_{2}$ in terms of $x_{3}$. We call $x_{1}$ and $x_{2}$ basic variables and $x_{3}$ the free variable. We call $x_{3}$ a free variable as we are free to choose any value for it. 
+\end{example}
+
+Most importantly, these are the conditions for row echelon and reduced row echelon form. 
+
+\begin{tcolorbox}
+ \textbf{Row echelon form if:}
+ \begin{itemize}
+     \item all nonzero rows are above zero rows
+     \item a leading entry is the right column of a leading entry above it
+     \item all entries in a column below a leading entry are 0
+ \end{itemize}
+ \textbf{Reduced row echelon also if:}
+ \begin{itemize}
+     \item leading entry in each nonzero row is 1
+     \item the entries in the column of the leading entry are 0
+ \end{itemize}
+\end{tcolorbox}
+\\ 
+
+To obtain reduced row echelon form, starting from the lowest row, the terms in the column with the leading term are made zero and the leading term scaled to 1. We repeat this process. 
+\\
+
+As a general remark, we obtain the following.
+
+\begin{thm}
+A system is consistent iff, the rightmost column has no pivot. More simply, iff the lowest row is not of the form: 
+\begin{bmatrix}
+    0 && 0 \dots && b
+\end{bmatrix}
+where b is nonzero. 
+\end{thm}
+
+
+
+
+
+
 
 
 
