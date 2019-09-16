@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+
+\addtolength{\topmargin}{-1.0in}
+
+
+\title{Linear Algebra 1}
+\author{alp.ozen}
+\date{September 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Linear equations}
+\subsection{Basics}
+
+\begin{tcolorbox}
+A linear equation is any equation of form:
+$a_{1}x_{1}+ ..... + a_{n}x_{n} = b$
+where the a are 'scalars' that belong to a field and the x belong to the vector set. 
+\end{tcolorbox}
+
+A \textit{system of linear equation}s is simply a collection of linear equations. The solution of this system, if there is any, is an ordered list $(s_{1},...,s_{n})$ where each $s_{i}$ is the value of each $x_{i}$.
+\\
+
+A system consisting of 2 unknowns and two linear equations is generally the intersection of two lines on a cartesian plane. Note that the lines may be parallel or even colinear. 
+\\
+
+In general, a system will have:
+\begin{itemize}
+    \item no solution
+    \item unique solution
+    \item infinite solutions 
+\end{itemize}
+\\
+
+We may choose to represent a system of linear equations as an \textit{augmented matrix}. A matrix is called n$x$m if it is of form:
+\begin{equation*}
+    \begin{bmatrix}
+    a_{11} && a{12} &&  ... \\
+    a_{21} && a {22}  && ... \\
+    \end{bmatrix}
+\end{equation*}
+
+\subsection{Solving a linear system}
+
+When solving a system, our goal is to replace each linear equation with an equivalent set(one that has the same solution) and obtain single linear equations which are trivial to solve. 
+\\
+
+In solving a system, we use the elementary row operations which are: 
+
+\begin{tcolorbox}
+\begin{itemize}
+    \item Interchange two rows (or columns).
+    \item Multiply each element in a row (or column) by a non-zero number.
+    \item Multiply a row (or column) by a non-zero number and add the result to another row (or column).
+\end{itemize}
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+\end{document}
