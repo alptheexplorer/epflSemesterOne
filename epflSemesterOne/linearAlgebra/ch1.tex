@@ -57,6 +57,7 @@ We may choose to represent a system of linear equations as an \textit{augmented 
 \end{equation*}
 
 \subsection{Solving a linear system}
+\subsubsection{Basics}
 
 When solving a system, our goal is to replace each linear equation with an equivalent set(one that has the same solution) and obtain single linear equations which are trivial to solve. 
 \\
@@ -134,6 +135,67 @@ A system is consistent iff, the rightmost column has no pivot. More simply, iff 
 \end{bmatrix}
 where b is nonzero. 
 \end{thm}
+\\
+
+A common confusion when solving a linear system is why the Gaussian algorithm works? To help answer this, the idea is to visualize a Cartesian plane with two random lines intersecting. Now, there can be multiple lines that intersect at the same point. But the intersection of something like $x=2$ and $y=5$ is obviously $(2,5)$ and requires less effort to solve. Thus, we try to replace our equations with those that are easier to solve and have the same solution set. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{epflSemesterOne/linearAlgebra/figures/linearGauss.png}
+    \caption{Equivalent systems}
+    \label{fig1}
+\end{figure}
+
+\subsubsection{Reducing a system to reduced row echelon form}
+
+\begin{tcolorbox}
+    \begin{align*}
+     \text{Given} \left(\begin{matrix}0&3&-6&6&4&-5\\3&-7&8&-5&8&9\\3&-9&12&-9&6&15\end{matrix}\right)\\
+     \text{We first realign to get} \left(\begin{matrix}3&-7&8&-5&8&9\\3&-9&12&-9&6&15\\0&3&-6&6&4&-5\end{matrix}\right) \\
+     \text{After applying elementary row operations, we get the reduced row echelon form of}\\
+     \left(\begin{matrix}1&0&-2&3&0&-24\\0&1&-2&2&0&-7\\0&0&0&0&1&4\end{matrix}\right)\\ 
+     \text{Now anything which is not a pivot column is called a free variable.}\\
+     x_{5} = 4\\
+     x_{2} = 2x_{3} - 2x_{4} - 7\\
+     x_{1} = 2x_{3} + 2x_{4} - 24
+     \end{align*}
+\end{tcolorbox}
+
+\subsubsection{High school basics}
+
+When solving systems of 2 unknowns or 3 unknowns, we simply are considering the system of lines or planes. Sticking to 3 dimensions, let's quickly recall how we obtain the formula's of a line and plane in 3-d. 
+\\
+A line in 3-d may be desribed in Vector form as:
+\begin{equation*}
+    l_[1] : \begin{bmatrix}
+        A\\
+        B\\
+        C
+    \end{bmatrix}
+    + 
+    \lambda\begin{bmatrix}
+        D\\
+        E\\
+        F
+    \end{bmatrix}
+    +
+    \psi\begin{bmatrix}
+        G\\
+        H\\
+        I
+    \end{bmatrix}
+\end{equation*}
+
+or may be simplified to cartesian form as: 
+\begin{equation*}
+    k = \frac{x + A}{B} = \ldots
+\end{equation*}
+
+Now, the equation of a plane is most commonly written in the form: 
+
+\begin{equation*}
+    Ax + By + Cz \ \text{where (A,B,C) is the normal vector to the plane.}
+\end{equation*}
 
 
 
