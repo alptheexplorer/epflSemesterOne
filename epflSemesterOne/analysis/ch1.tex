@@ -1,8 +1,10 @@
+  
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{tcolorbox}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage[
 top    = 2.50cm,
 bottom = 2.50cm,
@@ -17,8 +19,8 @@ right  = 2.75cm]{geometry}
 
 
 \title{Analysis}
-\author{alp.ozen}
-\date{September 2019}
+\author{SemesterOne analysis at EPFL}
+\date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
 
 \begin{document}
@@ -26,12 +28,68 @@ right  = 2.75cm]{geometry}
 \maketitle
 
 \section{Proofs}
+\subsection{Some general proofs}
 A valid proof is set of lines where each line logically follows from the next. 
 A most famous proof is that $\sqrt{2} $ is irrational. 
 
 \begin{tcolorbox}
-	Suppose that $\sqrt{2} = \frac{a}{b}$ where $a,b \in \Z$  
+\begin{proof}
+	Suppose that $\sqrt{2} = \frac{a}{b}$ where $a,b \in \mathbb{Z}$ and $gcd(a,b) = 1$
+	\\
+	Now we have that $\sqrt{2}b = a$ which means that $2b^2 = a^2$.
+	As result, $2 \vert a^2$ hence also $2 \vert a$. Thus we get that $a = 2k$ which also means that $b^2 = 2k^2$ hence $2 \vert b$. As result, $gcd(a,b) = 2$ which is a contradiction. Therefore, $\sqrt{2}$ must be irrational. 
+	\end{proof}
 \end{tcolorbox}
+
+Quite interestingly, we can also construct a 'wrong' proof just through one fallacious assumption and a set of correct steps. 
+
+\begin{tcolorbox}
+    \textbf{Claim:} 1 is the largest integer.
+    \\
+    Proof: 
+    \\
+    Let $n$ be the largest integer. Then we have $n \geq n^2$. Which also means $0 \geq n^2 - n = n(n-1)$. Now we have that either $n < 0$ or $n - 1 < 0$. But we know that $ n \nless 0$ as $n$ is at least 1. Hence, $n - 1 < 0$ giving us the result $n < 1$ proving our theorem. Note that the mistake here is solely the assumption we made at the start that there was a largest integer. 
+\end{tcolorbox}
+\subsection{Proofs relating to infinite processes}
+Consider the claim that $0.999\ldots = 1$.
+One way to prove this claim, rather naively is this.
+
+\begin{align*}
+    9 \times 0.999\ldots \\
+    = (10 - 1) \times 0.999\ldots\\
+    = 9.999\ldots - 0.999\ldots 
+    = 1
+\end{align*}
+
+Now a more formal proof is to use an infinite sum and limits. Here it is. 
+
+\begin{tcolorbox}
+\textbf{Analysis proof of 0.999\ldots = 1}
+    \begin{align*}
+        0.999\ldots = 9\lim_{k\to\infty}\sum_{i=1}^{k} (10^{-k})\\
+        \lim_{k\to\infty}\sum_{i=1}^{k}(10^{-k}) = \frac{10^{-1} - 10^{-(k+1)}}{1-10^{-1}}\\
+        = 9 \times \frac{1}{10} \times \frac{10}{9}\\
+        = 1
+    \end{align*}
+\end{tcolorbox}
+
+\subsection{Basic notions of sets}
+The breakdown of sets used in 'standard' analysis are $\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q} \subseteq \mathbb{R}$.
+\\
+There are also some common set related notation that must be known. 
+\begin{itemize}
+    \item a \textbf{subset} $a \subseteq b$ is defined as $\{x \in b \vert \text{"condition"}\}$
+    \item a \textbf{open interval} is defined as $\left]a,b[; r\in A, a < r < b$
+    \item an \textbf{open ball} $B(a,\lambda) = \left]a-\lambda,a+\lambda[$
+\end{itemize}
+
+\subsection{Complex numbers}
+
+A complex number is a number of the form $x + iy$
+
+
+
+
 
 
 \end{document} 
