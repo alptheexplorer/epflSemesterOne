@@ -5,7 +5,6 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
 
 
 \usepackage[
@@ -19,13 +18,11 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 
 
-\newtheorem{thm}{Theorem}
-
-
 \title{Advanced Computation}
 \author{alp.ozen}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}
 
 \begin{document}
 
@@ -72,9 +69,53 @@ f & f & t & t & t & t
     \includegraphics{figures/precedence}
 \end{figure}
 
+\subsection{Fuzzy logic}
 
-%below are notes from lecture one 
+In fuzzy logic, truth values are between 0 and 1. So if the statement "I like riding a bike" has a value of 0.8, it's negation has 1 minus this value, in this case -0.2. 
 
+\subsection{Applications of logic}
+\subsubsection{Logic gates}
+Here are the basic logic circuits from which more complex circuits are made: 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale= 1]{epflSemesterOne/advancedComputation/figures/logicgates.JPG}
+    \caption{Logic gates}
+    \label{fig:my_label}
+\end{figure}
+
+Note that the OR and AND gates accept only and only 2 inputs and output one. This input may be as compounded as possible but not exceed 'two chunks'. Thus, when given a complex logical output and reverse engineering, we identify the outer most outer operation, branch it into two or one(if it is simply a negation) and so on. 
+
+\subsubsection{More on propositions}
+
+\begin{tcolorbox}
+\begin{itemize}
+    \item \textbf{Tautology} is a compound proposition that is always true regardless of the truth value of its variables
+    \item \textbf{Contradiction} is a compound proposition that is always false regardless of the truth value of its variables 
+    \item \textbf{Contingency} compound statement that is neither tautology nor contradiction
+    
+    \begin{example}
+    \\
+    $p \land \neg p$ is a contradiction
+    \\
+    $p \lor \neg p$ is a tautology
+    \end{example}
+\end{itemize}
+\end{tcolorbox}
+
+Here are some examples of logical calculus:
+\\
+Show that $\neg(p \lor (\neg p \land q )) \equiveq \neg p \land \neg q$
+\begin{align*}
+    \neg(p\lor\neg p \land p \lor q)\\
+    \neg(T \land p \lor q)\\
+    \neg(p \lor q)\\
+    \neg p \land \neg q
+\end{align*}
+
+\subsubsection{Satisfiability}
+
+A compound proposition is \textbf{satisfiable} if a truth assignment can be made to its variables that make it true making it either a tautology or a contingency. It is \textbf{unsatisfiable} if the negation of the compound statement is a contradiction. 
 
 
 
