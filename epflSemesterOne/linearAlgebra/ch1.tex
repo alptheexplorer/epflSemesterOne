@@ -14,7 +14,7 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 
 \newtheorem{thm}{Theorem}
-
+\newtheorem{property}{Property}
 
 \title{Linear Algebra 1}
 \author{alp.ozen}
@@ -196,6 +196,62 @@ Now, the equation of a plane is most commonly written in the form:
 \begin{equation*}
     Ax + By + Cz \ \text{where (A,B,C) is the normal vector to the plane.}
 \end{equation*}
+
+\section{Introducing vector spaces}
+\subsection{Basics}
+A vector space is an algebraic structure consisting of two sets, a scalar set and the vector set. The scalar set happens to be field and the vector set an additive abelian group. We also define a 'scalar multiplication' between the scalars and vectors to satisfy the following:
+
+\begin{itemize}
+    \item $r_{1}r_{2}(v_{1}) = (r_{1}r_{2})v_{1}$  \textbf{associativity of scalar multiplication}
+    \item $r_{1}(v_{1}+v_{2}) = r_{1}v_{1}+ r_{1}v_{2}$ and the opposite as well, thus multiplication distributes over addition.
+    \item $1_{r}v_{1} = v_{1}$
+\end{itemize}
+
+\begin{property}
+From the above properties, we can neatly deduce also that $0_{r}v_{1} = 0$
+\begin{align*}
+    0_{r}v_{1} = (1-1)v_{1}\\
+    1v_{1} - 1v_{1} = 0
+\end{align*}
+\end{property}
+\\
+The most common vector space is that of $\mathbb{R}^{n}$. It's vector and scalar set are the same. 
+\subsection{Linear combinations,span and matrix theorems}
+
+\begin{tcolorbox}
+  A \textbf{linear combination} of vectors is simply a sum of vectors multiplied by scalars. 
+  \begin{equation*}
+      v_{i} = a_{1}v_{1} + \ldots + a_{k}v_{k}
+  \end{equation*}
+  A \textbf{span} for given vector set $\{v_{1}\ldots v_{k}\}$is simply a set that consists of all the possible outputs of $\sum_{i=1}^{k} a_{i}v_{i}$
+\end{tcolorbox}
+
+A common idea in linear algebra is to view a linear combination as the product of two matrices. We can't help but notice that:
+
+\begin{equation*}
+    a_{1}v_{1} + \ldots + a_{k}v_{k} = \begin{bmatrix}
+        v_{1}  \ldots v_{k}
+    \end{bmatrix} \begin{bmatrix}
+        a_{1} \\
+        \vdots \\
+        a_{k}
+    \end{bmatrix}
+\end{equation*}
+
+An important theorem that follows from the fact that $Ax=b$ is the same as representing a system of linear equations is a set of equivalent statements(meaning they always have the same truth value.) 
+
+\begin{thm}
+\text{The following are equivalent:}
+\begin{enumerate}
+    \item $\forall b \in \mathbb{R}^{m}, Ax=b$ \text{has a solution}
+    \item $ \forall b \in \mathbb{R}^{m}$ \text{is a linear combination of the columns of A.}
+    \item \text{columns of A span} \mathbb{R}^{m}
+    \item \text{A(the coefficient matrix!) has a pivot position in each row. }
+\end{enumerate}
+\end{thm}
+
+
+
 
 
 
