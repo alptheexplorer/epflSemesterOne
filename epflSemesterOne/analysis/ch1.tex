@@ -16,6 +16,7 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 
 \newtheorem{thm}{Theorem}
+\newtheorem{remark}{Remark}
 
 
 \title{Analysis}
@@ -23,12 +24,13 @@ right  = 2.75cm]{geometry}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{example}{Example}[section]
+\newtheorem{axiom}{Axiom}
 
 \begin{document}
 
 \maketitle
 
-\section{Proofs}
+\section{Proofs and the reals}
 \subsection{Some general proofs}
 A valid proof is set of lines where each line logically follows from the next. 
 A most famous proof is that $\sqrt{2} $ is irrational. 
@@ -115,8 +117,29 @@ The supremum of a set S(if it exists) is the lowest upper bound. That is $sup(S)
 
     \begin{align}
         \forall x \in S, b \geq x\\
-        \forall \epsilon > 0, \exists x_{\epsilon} s.t. b - x_{\epsilon} \leq \epsilon
+        \forall \epsilon > 0, \exists x_{\epsilon}, b - x_{\epsilon} \leq \epsilon
     \end{align}
+    
+    
+    
+    
+    
+\begin{remark}
+
+   In our above definition, b does not have to be in S.
+
+\end{remark}
+
+
+\begin{remark}
+    Condition 1 states that b is an upper bound of S. 
+ 
+\end{remark}
+
+
+\begin{remark}
+       Given condition 1, b is the \textit{minimum} of the upper bounds of S.
+\end{remark}
     
 Some examples of $sup$ and $inf$
 
@@ -124,11 +147,26 @@ Some examples of $sup$ and $inf$
 \begin{align*}
  Sup ]a,b[ = b\\
  Inf ]a,b[ = a\\
- Sup {\ x\in \mathbb{R} \vert x = 2k} \text{Sup doesn't exist.}
-    
+ Sup \{ x\in \mathbb{R} \vert x = 2k\} \implies \text{Sup doesn't exist.}
 \end{align*}
-
 \end{example}
+
+
+We now establish the infinimum axiom.
+\begin{axiom}
+All non-empty subsets of $\mathbb{R}_{+}^{*}$ have a highest lower boundary(aka.infinimum)
+\end{axiom}
+
+\subsection{\mathbb{Q} is dense in \mathbb{R}}
+We claim that between every real number, one can find a rational number. Here's the proof,
+
+\begin{tcolorbox}
+\begin{proof}
+    Let $x<y \in \mathbb{R}$ Suppose now that $\exists a \in \mathbb{Q}$ such that $x<a<y$. By the Archimedean principle(there is always a greater natural number, $n > \frac{1}{y-x}$ which implies $ny>nx+1$ Now since $ny>nx+1$, there is guaranteed to be some integer in the open bound $]nx,ny[$ which we denote $P$. Dividing by $n$, we get that $\frac{P}{n} \in ]x,y[$ which proves the theorem. 
+    \tag*{\qedhere}
+\end{proof}
+\end{tcolorbox}
+
 
 
 
