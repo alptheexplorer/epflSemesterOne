@@ -22,6 +22,7 @@ right  = 2.75cm]{geometry}
 \author{SemesterOne analysis at EPFL}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}[section]
 
 \begin{document}
 
@@ -101,9 +102,33 @@ The reals are a set that have the 3 following axioms:
     \item The inf and sup axioms hold
 \end{itemize}
 
-We shall now come the \textit{inf} and \textbf{sup} axioms. It should be intuitively clear that any subset of \mathbb{R} 
+We shall now come the \textbf{inf} and \textbf{sup} axioms. It should be intuitively clear that any subset of \mathbb{R} 
 \end{tcolorbox}
 
+\subsection{Bounds}
+Take some subset S in \mathbb{R}. An element B is called an upper bound of S if $\forall x \in S, B \geq x$. Similarly, it is a lower bound of S if $\forall x \in S, B \leq x$.
+\\
+The maximum B of a set S denoted $max(S)$ is such that $B \in S, \forall x \in S B \geq x$. 
+\\
+The supremum of a set S(if it exists) is the lowest upper bound. That is $sup(S) = b$ is such that,
+
+
+    \begin{align}
+        \forall x \in S, b \geq x\\
+        \forall \epsilon > 0, \exists x_{\epsilon} s.t. b - x_{\epsilon} \leq \epsilon
+    \end{align}
+    
+Some examples of $sup$ and $inf$
+
+\begin{example}
+\begin{align*}
+ Sup ]a,b[ = b\\
+ Inf ]a,b[ = a\\
+ Sup {\ x\in \mathbb{R} \vert x = 2k} \text{Sup doesn't exist.}
+    
+\end{align*}
+
+\end{example}
 
 
 
