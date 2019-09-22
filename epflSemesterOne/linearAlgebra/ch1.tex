@@ -238,17 +238,23 @@ A common idea in linear algebra is to view a linear combination as the product o
     \end{bmatrix}
 \end{equation*}
 
-An important theorem that follows from the fact that $Ax=b$ is the same as representing a system of linear equations is a set of equivalent statements(meaning they always have the same truth value.) 
+An important theorem that follows from the fact that $Ax=b$ is a set of equivalent statements(meaning they always have the same truth value.) 
 
 \begin{thm}
 \text{The following are equivalent:}
 \begin{enumerate}
     \item $\forall b \in \mathbb{R}^{m}, Ax=b$ \text{has a solution}
-    \item $ \forall b \in \mathbb{R}^{m}$ \text{is a linear combination of the columns of A.}
-    \item \text{columns of A span} \mathbb{R}^{m}
+    \item $ \forall b \in \mathbb{R}^{m}$ \text{b is a linear combination of the columns of A.}
+    \item \text{columns of A span} $\mathbb{R}^{m}$
     \item \text{A(the coefficient matrix!) has a pivot position in each row. }
 \end{enumerate}
 \end{thm}
+
+\subsection{Homogeneous system of equations}
+
+Any system of linear equations that can be written of the form $Ax = 0$ is called \textbf{Homogeneous}. Clearly, this system has at least one solution which is when x is equal to the 0 vector. The non-trivial solution is if $x$ is not equal to 0 in which case the solution is described in terms of a parameter. Now, a theorem that follows is, for a non-homogeneous system $Ax=b$ with solution $p$, the solution set of $Ax=b$ is the set of vectors of the form $w = p + v_{h}$ where $v_{h}$ is any solution to $Ax = 0$.
+
+
 
 
 
