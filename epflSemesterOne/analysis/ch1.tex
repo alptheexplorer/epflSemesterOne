@@ -17,7 +17,9 @@ right  = 2.75cm]{geometry}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{remark}{Remark}
-
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{[Proposition]}
+\newtheorem{definition}{Definition}
 
 \title{Analysis}
 \author{SemesterOne analysis at EPFL}
@@ -173,6 +175,45 @@ Any number $\in \mathbb{R}$ has a integer and fractional part(at least intuitive
 \\
 Similarly, the fractional part of x denoted {x} is simply ${x} = x - [x]$
 
+\subsection{Pinning it down:Sup/Inf, bounds, max/min}
+\begin{definition}
+for a given set $S \subseteq \mathbb{R}$, we have the following:
+\\
+\textbf{Sup s = b} $\iff \forall \epsilon > 0, \exists x_{\epsilon} \in S, s.t. b - x_{\epsilon} < \epsilon$ (resp. Inf s has the flipped argument)
+\\
+\textbf{Upper bound = b} $\iff \forall x \in S, b\geq x$(resp. lower bound)
+\\
+\textbf{Max s = b} $\iff$ b is an upper bound and $b \in S$
+
+\end{definition}
+\\
+
+And for the sake of repeating the early axiom(but very important) the infimum axiom is:
+\begin{axiom}
+For all non-empty subsets of $\mathbb{R}$, $inf S$ exists. 
+\end{axiom}
+
+Now we make the first claim in this course that uses an epsilon proof.
+\begin{prop}
+Whenever $S \subseteq \mathbb{N}$, then $inf S = min S$
+\end{prop}
+
+\begin{proof}
+    Now, by our axiom, we have that $\mathbb{N} \subseteq \mathbb{R}$ hence we know that $inf S$ exists. We now have to show that $inf S = min S$. 
+    \\
+    
+    Suppose that $inf S \not =  min S$ and let $inf S = b$. Now clearly, $b+\epsilon$ is not a lower bound of S. Now, let $\epsilon = \frac{1}{2}$. Because, $b + \epsilon$ is not a lower bound, we know that $\exists s_{e} < b + \epsilon$. 
+    \\
+    
+    Now $s_{e$ is also not a lower bound, so let's pick $\epsilon^{\prime\prime} = s_{\epsilon} - d$. Now again, $s_{\epsilon^{\prime\prime}}$ must exist. We obtain yet the following:
+    \\
+    \begin{equation*}
+        d < s_{\epsilon^{\prime\prime}} < s_{\epsilon} < d + 1/2 
+    \end{equation*}
+    
+    Now, two natural numbers clearly can not be in an interval which is only $\frac{1}{2}$ units long. Hence, contradiction which means that $d \in S$
+    \tag*{\qedhere}
+\end{proof}
 
 
 
