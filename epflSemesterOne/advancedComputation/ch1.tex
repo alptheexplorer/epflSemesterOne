@@ -4,6 +4,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{proof}
 \theoremstyle{definition}
 
 
@@ -23,7 +24,8 @@ right  = 2.75cm]{geometry}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{example}{Example}
-
+\newtheorem{definition}{Definition}
+\newtheorem{question}{Question \textit{???}}
 \begin{document}
 
 \maketitle
@@ -117,6 +119,46 @@ Show that $\neg(p \lor (\neg p \land q )) \equiveq \neg p \land \neg q$
 
 A compound proposition is \textbf{satisfiable} if a truth assignment can be made to its variables that make it true making it either a tautology or a contingency. It is \textbf{unsatisfiable} if the negation of the compound statement is a contradiction. 
 
+\subsection{Logical calculus and useful equivalences}
+
+\begin{definition}
+If $A \iff B$ is a tautology, then A is logically equivalent to B. 
+\end{definition}
+\\
+
+Here are some useful logical equivalences(omitting most obvious ones):
+
+\begin{align*}
+    p \implies q \equiv \neg p \lor q \equiv \neg(\neg q \lor p) \equiv \not(q \implies p) \equiv \neg q \implies \neg p \\
+    p \lor ( q \land r) \equiv (p \lor q) \land (p \lor r) \\
+    \land \ \text{distributes over} \lor \text{and vice versa}\\
+    p \lor \neg p \equiv T\\
+    p \land \neg p \equiv F\\
+    P \land T \equiv p\\
+    p \lor F \equiv p
+    \text{both $\land$ and $\lor$ are associative}
+\end{align*}
+
+For more see this figure:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.7]{epflSemesterOne/advancedComputation/figures/logic.JPG}
+    \caption{Logic, yey!}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{definition}
+A \textbf{rule of inference} is based on the tautology $p \land (p \implies q) \implies q$. That is, whenever we are given that both $p$ and $p \implies q$ is true, we infer that q must be true. That is :
+\\
+
+\infer{q}{p & (p \implies q)}
+\end{definition}
+
+
+\begin{question}
+Given propositional variables and truth values of the single variables for which the compound proposition takes a value, is there a way of deducing a compound proposition? 
+\end{question}
 
 
 
