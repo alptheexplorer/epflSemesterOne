@@ -13,13 +13,14 @@ right  = 2.75cm]{geometry}
 \lhead{Linear algebra basics}
 \rhead{EPFL/Alp Ozen}
 
-\newtheorem{thm}{Theorem}
+\newtheorem{thm}{Theorem}[subsection]
 \newtheorem{property}{Property}
+\newtheorem{cor}{Corollary}[subsection]
 
 \title{Linear Algebra 1}
 \author{alp.ozen}
 \date{September 2019}
-\newtheorem{theorem}{Theorem}[section]
+
 
 \begin{document}
 
@@ -253,6 +254,61 @@ An important theorem that follows from the fact that $Ax=b$ is a set of equivale
 \subsection{Homogeneous system of equations}
 
 Any system of linear equations that can be written of the form $Ax = 0$ is called \textbf{Homogeneous}. Clearly, this system has at least one solution which is when x is equal to the 0 vector. The non-trivial solution is if $x$ is not equal to 0 in which case the solution is described in terms of a parameter. Now, a theorem that follows is, for a non-homogeneous system $Ax=b$ with solution $p$, the solution set of $Ax=b$ is the set of vectors of the form $w = p + v_{h}$ where $v_{h}$ is any solution to $Ax = 0$.
+\\ We now list some useful theorems. 
+\begin{thm}
+A homogeneous equation $Ax = 0$ has a nontrivial solution iff it has at least one free variable.
+\end{thm}
+
+\begin{thm}
+Columns of A are linearly dependent iff $Ax=0$ has a trivial solution.
+\end{thm}
+
+\begin{thm}
+Suppose the equation $Ax=b$ has a solution p. Then the set of possible solutions to $Ax=b$ are of the form $w = p + v_{h}$ where $v_{h}$ is a solution of $Ax = 0$.(Ofcourse assuming $Ax=b$ is consistent) That is to say, if we knew two solutions to $Ax=b$, we could find a solution to $Ax=0$. 
+\end{thm}
+
+
+\subsection{Linear Independence}
+A set of vectors is linearly independent if the solution to:
+
+\begin{equation*}
+    a_{1}v_{1} + \ldots + a_{k}v_{k} = 0
+\end{equation*}
+
+is only the trivial solution, that is the $0_{v} \in \mathbb{R}^{k}$.
+\\
+We now present some common statements concerning linear independence. 
+\begin{tcolorbox}
+  \begin{thm}
+    Whenever $Ax=0$ has a nontrivial solution, the columns of $A$ are linearly dependent. 
+    \end{thm}
+    
+    \begin{thm}
+    A set of vectors is linearly dependent if at least one of the vectors is a scalar multiple of the other.
+    \end{thm}
+    
+    \begin{thm}
+    If a set contains the zero vector, then it is linearly dependent.
+    \end{thm}
+    
+    \begin{thm}
+    If a set of vectors contain more vectors than vector entries, the set is linearly dependent.
+    \end{thm}
+    
+    \begin{thm}
+    A set of vectors is linearly dependent if the row echelon form of A to $Ax=0$ has at least one free variable.
+    \end{thm}
+    
+\begin{thm}
+A set of vectors is linearly dependent iff at least one of the vectors can be written as a linear combination of the others.
+\end{thm}
+
+\begin{cor}
+Two vectors are linearly dependent iff one is a scalar multiple of the other
+\end{cor}
+
+\end{tcolorbox}
+Let's now prove the most useful out of these theorems. 
 
 
 

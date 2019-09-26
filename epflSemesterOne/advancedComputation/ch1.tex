@@ -155,6 +155,16 @@ A \textbf{rule of inference} is based on the tautology $p \land (p \implies q) \
 \infer{q}{p & (p \implies q)}
 \end{definition}
 
+Another important fact of logic is that we may boil down all of $\lor, \oplus, \implies, \iff$ to simply propositions involving$\neg, \land$: 
+
+\begin{align*}
+    p \lor q \equiv \neg \neg (p \lor q) \equiv \neg(\neg p \land \neg q)\\
+    p \oplus q \equiv \neg(p \land q) \land (p \lor q)\\
+    p \implies q \equiv \neg p \lor q \equiv \neg (p \land \neg q)\\
+    p \iff q \equiv \neg (q \land \neg p)
+\end{align*}
+
+
 
 \begin{question}
 Given propositional variables and truth values of the single variables for which the compound proposition takes a value, is there a way of deducing a compound proposition? 
