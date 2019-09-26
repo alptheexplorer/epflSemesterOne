@@ -129,14 +129,14 @@ If $A \iff B$ is a tautology, then A is logically equivalent to B.
 Here are some useful logical equivalences(omitting most obvious ones):
 
 \begin{align*}
-    p \implies q \equiv \neg p \lor q \equiv \neg(\neg q \lor p) \equiv \not(q \implies p) \equiv \neg q \implies \neg p \\
+    p \implies q \equiv \neg p \lor q \equiv \neg(\neg q \lor p) \equiv \neg(q \implies p) \equiv \neg q \implies \neg p \\
     p \lor ( q \land r) \equiv (p \lor q) \land (p \lor r) \\
     \land \ \text{distributes over} \lor \text{and vice versa}\\
     p \lor \neg p \equiv T\\
     p \land \neg p \equiv F\\
     P \land T \equiv p\\
     p \lor F \equiv p
-    \text{both $\land$ and $\lor$ are associative}
+    \ \text{both $\land$ and $\lor$ are associative}
 \end{align*}
 
 For more see this figure:
@@ -165,10 +165,38 @@ Another important fact of logic is that we may boil down all of $\lor, \oplus, \
 \end{align*}
 
 
-
 \begin{question}
 Given propositional variables and truth values of the single variables for which the compound proposition takes a value, is there a way of deducing a compound proposition? 
 \end{question}
+
+\subsection{Lec.03 notes}
+
+The \textbf{contrapositive} is the following statement:
+\begin{align*}
+    p \implies q \equiv \neg p \lor q\\
+    \equiv q \lor \neg p\\
+    \equiv \neg q \implies \neg p\\
+    \therefore p \implies q \equiv \neg q \implies \neg p
+\end{align*}
+\\
+Some useful logical equivalences involving implication:
+
+\begin{align*}
+    (p \implies q) \land (p \implies r) \equiv (\neg p \lor q) \land (\neg p \lor r)\\
+    \equiv \neg p \lor (q \land r) \equiv p \implies (q \land r)
+\end{align*}
+And here's a more trivial one: 
+\begin{align*}
+    (p \implies q) \lor (p \implies r) \equiv (\neg p \lor q) \lor (\neg p \lor r)\\
+    \equiv \neg p \lor \neg p \lor q \lor r \equiv \neg p \lor (q \lor r)\\
+    \equiv p \implies (q \lor r)
+\end{align*}
+And slightly more complicated involving De Morgan:
+\begin{align*}
+    (p \implies r) \land (q \implies r) \equiv (\neg p \lor r) \land (\neg q \lor r)\\
+    \equiv \neg r \lor (\neg p \land \neg q) \equiv \neg r \lor (\neg(p \lor q)\\
+    \equiv (p \lor q) \implies r 
+\end{align*}
 
 
 

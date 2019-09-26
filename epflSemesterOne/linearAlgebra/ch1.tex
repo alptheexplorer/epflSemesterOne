@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{tcolorbox}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage[
 top    = 2.50cm,
 bottom = 2.50cm,
@@ -300,6 +301,7 @@ We now present some common statements concerning linear independence.
     \end{thm}
     
 \begin{thm}
+\label{comb}
 A set of vectors is linearly dependent iff at least one of the vectors can be written as a linear combination of the others.
 \end{thm}
 
@@ -309,6 +311,25 @@ Two vectors are linearly dependent iff one is a scalar multiple of the other
 
 \end{tcolorbox}
 Let's now prove the most useful out of these theorems. 
+
+\begin{proof}
+Let's first prove \ref{comb}.
+\\
+($\rightarrow$)
+   Now suppose that for $S = \{ v_{1}, \ldots , v_{k}\}, v_{1} = a_{2}v_{2} + \ldots a_{k}v_{k}$ Then:
+   $$ 0 = a_{2}v_{2} + \ldots - v_{1}$$
+   In which case $v_{1}$ has a nonzero coefficient implying a nontrivial solution. 
+   \\
+($\leftarrow$)
+Let $j$ represent the vectors that have a nonzero coefficient in $a_{1}v_{1} + \ldots + a_{j}v_{j} + \ldots a_{k}v_{k}$
+\\
+Now, WLOG, we get for all subscripts less than or equal to $j$:
+
+$$ v_{1} = - \frac{a_{2}}{a_{1}}v_{2} - \ldots - \frac{a_{k}}{a_{1}}v_{k}$$
+    \tag*{\qedhere}
+\end{proof}
+
+
 
 
 
