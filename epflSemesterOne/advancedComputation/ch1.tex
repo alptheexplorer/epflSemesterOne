@@ -161,7 +161,7 @@ Another important fact of logic is that we may boil down all of $\lor, \oplus, \
     p \lor q \equiv \neg \neg (p \lor q) \equiv \neg(\neg p \land \neg q)\\
     p \oplus q \equiv \neg(p \land q) \land (p \lor q)\\
     p \implies q \equiv \neg p \lor q \equiv \neg (p \land \neg q)\\
-    p \iff q \equiv \neg (q \land \neg p)
+    p \iff q \equiv \neg(\neg(p\land q) \land (\neg (\neg p \land \neg q))
 \end{align*}
 
 
@@ -197,6 +197,40 @@ And slightly more complicated involving De Morgan:
     \equiv \neg r \lor (\neg p \land \neg q) \equiv \neg r \lor (\neg(p \lor q)\\
     \equiv (p \lor q) \implies r 
 \end{align*}
+
+\subsection{Lec.04 notes}
+This was a lecture with a steep curve and here is a summary. First of all, we first revisit some of the concepts of the pmos and nmos resistors. A very important convention is that pmos must never be used for pull-down(connected to GND) and nmos never used for pullup(connected to VDD). 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{epflSemesterOne/advancedComputation/figures/cmos.JPG}
+    \caption{Caption}
+    \label{Nmos,Pmos,Inverter,Nand}
+\end{figure}
+
+\begin{tcolorbox}
+Some principles of cmos gates: 
+\begin{itemize}
+    \item Pmos goes to top, nmos to bottom.
+    \item Never connect high voltage to low voltage to prevent a short circuit. 
+    \item Any circuit may be realized as a combination of the NAND and NOR ciruit. 
+    \item Each pmos must connect to an nmos. 
+\end{itemize}
+\end{tcolorbox}
+\\
+The most challenging part of CMOS circuits is the circuit analysis itself. Consider this example to see a method of circuit analysis: 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{epflSemesterOne/advancedComputation/figures/cmosq.JPG}
+    \caption{exam question}
+    \label{exam question}
+\end{figure}
+
+\begin{tcolorbox}
+Now, first of all, realize that X is connected to VDD iff all of $Y_{6} \land Y_{5} \land Y_{4}$ are grounded. That is $Y_{6} \land Y_{5} \land Y_{4} = 0$. For symbolic purposes, supposing that $Y_{i} = 0 \equiv \neg Y_{i} $ we get that $X = 1 \iff \neg (Y_{4} \lor Y_{5} \lor Y_{6})$ Now given that this is a CMOS circuit, we know that the bottom part does the exact opposite of the upper part. Thus, we have that $X=0 \iff \neg(\neg (Y_{4} \lor Y_{5} \lor Y_{6})) = Y_{4} \lor Y_{5} \lor Y_{6} \equiv Y_{1} \lor Y_{2} \lor Y_{3}$. As a final step, for $\neg (A \lor B \lor C)$ to be true, we need that the output equals $\neg(A \lor B \lor C)$ and since $X=1 \iff \neg (Y_{4} \lor Y_{5} \lor Y_{6})$ we get that $Y_{1} = Y_{2} \ldots$
+
+\end{tcolorbox}
 
 
 

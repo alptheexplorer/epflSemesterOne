@@ -261,8 +261,35 @@ Therefore, $sup S = x = \sqrt{2}$ and since every $sup S \in \mathbb{R}$, $\sqrt
    
     \tag*{\qedhere}
 \end{proof}
-
 \end{tcolorbox}
+
+\subsection{More theorems about \mathbb{R}}
+
+\begin{tcolorbox}
+\begin{prop}
+If $a < b$ are real numbers, then $\exists c \in \mathbb{Q}, a < c < b$ 
+\end{prop}
+
+\begin{proof}
+Now our goal is to show that for any real number $a,b$ we can always find such a $c$. 
+Now take some arbitrary $n$ and set it to $n = [ \frac{1}{b-a}] + 1$ Now clearly, $n>\frac{1}{b-a}$ and hence $\frac{1}{n} < b-a$. We will now use this result. Realize that $a = \frac{an}{n} < \frac{[an + 1]}{n} \leq \frac{an + 1}{n} = a + \frac{1}{n} < a + b - a = b$ Therefore, we have found that $a < \frac{[an]+1}{n}< b$ where $c = \frac{[an]+1}$
+   
+    \tag*{\qedhere}
+\end{proof}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\begin{prop}
+If $a < b$ are real numbers, then $\exists c \in \mathbb{R\backslash Q}, a < c < b$ 
+\end{prop}
+
+\begin{proof}
+Using the above proposition, we know that $\exists c$ for any $\frac{a}{\sqrt{2}} < \frac{b}{\sqrt{2}} $ and now we get that $a < \sqrt{2}c < b $ where $\sqrt{2}c$ is irrational as whenever one term in $x\times y = z$ is rational and the other irrational, we have (supposing $x$ is irrational) $x = \frac{z}{y}$ and if also $z$ were rational, it would make $x$ rational which is a contradiction. 
+    \tag*{\qedhere}
+\end{proof}
+\end{tcolorbox}
+
+
 
 
 
