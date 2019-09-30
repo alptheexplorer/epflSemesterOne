@@ -289,9 +289,36 @@ Using the above proposition, we know that $\exists c$ for any $\frac{a}{\sqrt{2}
 \end{proof}
 \end{tcolorbox}
 
+\begin{definition}
+The absolute value function $x$ is a function $f: \mathbb{R} \to \mathbb{R^{+}}$ such that:
+
+\[ \begin{cases}  
+      f(x) = x , x \geq 0 \\
+      f(x) = - x , x < 0
+   \end{cases}
+\]
+\end{definition}
+
+Absolute value respects multiplication and division, that is:
+
+\begin{align*}
+    |a||b| = |ab|\\
+    \frac{|a|}{|b|} = |\frac{a}{b}|
+\end{align*}
+
+But this doesn't hold for addition. For addition we have the triangle inequality: 
+
+\begin{equation*}
+    |x+y| \leq |x| + |y| 
+\end{equation*}
+
+To prove the above: 
 
 
-
+\begin{proof}
+Take $|x+y| < 0$. Then $|x+y| = -(x+y) = -x -y \leq |x| + |y|$ Take $|x+y| \geq 0$. Then $|x+y| = x + y \leq |x| + |y|$
+    \tag*{\qedhere}
+\end{proof}
 
 
 

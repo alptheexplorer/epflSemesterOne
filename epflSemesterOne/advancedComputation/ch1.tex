@@ -17,7 +17,7 @@ right  = 2.75cm]{geometry}
 \pagestyle{fancy}
 \lhead{Advanced computation}
 \rhead{EPFL/Alp Ozen}
-
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
 
 \title{Advanced Computation}
 \author{alp.ozen}
@@ -168,7 +168,7 @@ Another important fact of logic is that we may boil down all of $\lor, \oplus, \
 \begin{question}
 Given propositional variables and truth values of the single variables for which the compound proposition takes a value, is there a way of deducing a compound proposition? 
 \end{question}
-
+\newpage
 \subsection{Lec.03 notes}
 
 The \textbf{contrapositive} is the following statement:
@@ -198,7 +198,10 @@ And slightly more complicated involving De Morgan:
     \equiv (p \lor q) \implies r 
 \end{align*}
 
+We must also add some comments on base b systems of numbers and a general algorithm for conversion. Let's take an example in base 5. Suppose we want to convert $60_{10}$ to its base 5 representation. Well the largest power of 5 less than or equal to 60 is 25 and thus we know that 60 can be \textbf{uniquely} represented as a linear combination of the powers of 5 less than or equal to it. In fact, using powers of 5 less than or equal to 60, we may represent all numbers up to $5^k - 1$ as $4\cdot5^{k-1} + \ldots + 4\cdot5^{0}$. Thus, to represent some $l$ in base $b$ the algorithm is to find the largest power of $b^k < l$, perform $\floor{\frac{l}{b^k}}$ then repeat step 1 and proceed as $l - b^k\cdot\floor{\frac{l}{b^k}}$ and repeat until $l - b^i\cdot\floor{\frac{l}{b^i}} = 0$
+ 
 \subsection{Lec.04 notes}
+\subsubsection{More on CMOS}
 This was a lecture with a steep curve and here is a summary. First of all, we first revisit some of the concepts of the pmos and nmos resistors. A very important convention is that pmos must never be used for pull-down(connected to GND) and nmos never used for pullup(connected to VDD). 
 
 \begin{figure}[h]
@@ -220,20 +223,58 @@ Some principles of cmos gates:
 \\
 The most challenging part of CMOS circuits is the circuit analysis itself. Consider this example to see a method of circuit analysis: 
 
-\begin{figure}[h]
+
+\begin{figure}[h!]
     \centering
-    \includegraphics{epflSemesterOne/advancedComputation/figures/cmosq.JPG}
+    \includegraphics[scale = 0.6]{epflSemesterOne/advancedComputation/figures/cmosq.JPG}
     \caption{exam question}
     \label{exam question}
 \end{figure}
+
+\FloatBarrier
 
 \begin{tcolorbox}
 Now, first of all, realize that X is connected to VDD iff all of $Y_{6} \land Y_{5} \land Y_{4}$ are grounded. That is $Y_{6} \land Y_{5} \land Y_{4} = 0$. For symbolic purposes, supposing that $Y_{i} = 0 \equiv \neg Y_{i} $ we get that $X = 1 \iff \neg (Y_{4} \lor Y_{5} \lor Y_{6})$ Now given that this is a CMOS circuit, we know that the bottom part does the exact opposite of the upper part. Thus, we have that $X=0 \iff \neg(\neg (Y_{4} \lor Y_{5} \lor Y_{6})) = Y_{4} \lor Y_{5} \lor Y_{6} \equiv Y_{1} \lor Y_{2} \lor Y_{3}$. As a final step, for $\neg (A \lor B \lor C)$ to be true, we need that the output equals $\neg(A \lor B \lor C)$ and since $X=1 \iff \neg (Y_{4} \lor Y_{5} \lor Y_{6})$ we get that $Y_{1} = Y_{2} \ldots$
 
 \end{tcolorbox}
 
+\subsubsection{Binary addition circuit}
 
+Given that we can construct any compound logical gate using CMOS, suppose we want to implement a binary addition calculator. Now here are all the possible cases for doing binary addition: 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.6]{epflSemesterOne/advancedComputation/figures/binary.png}
+    \caption{Addition possibilities}
+    \label{fig:my_label}
+\end{figure}
+
+Now suppose we want a function $f(a,b,c_{in})$ to evaluate $s$. Well notice that $s$ is only true when the parity of $a,b,c_{in}$ is odd. That is, we may describe this outcome with the function $a \oplus b \oplus c_{in}$. Similarly, devising $g(a,b,c_{in})$ to compute $c_{out}$ we notice that $c_{out}$ evaluates to 1 iff at least two variables are true. This is equivalent to $(a\land b) \lor (a \land c_{in}) \lor (b \land c_{in})$
+
+\subsubsection{Fast Multiplication aka. Karatsuba}
+We now ponder whether there is a quick way of multiplying some $v$ and $w$. Now notice that for $v$ and $w$ in base 10, $v = aX + b$ and $w = cX + d$. Now notice that $v \cdot w = (aX+b)(cX+d)$ which in turn is:
+
+\begin{equation*}
+    v\cdot w = acX^2 + (ad + bc)X + bd
+\end{equation*}
+
+And further notice that:
+
+\begin{equation*}
+    ad + bc = (ac + bd) - (a - b)(c - d) 
+\end{equation*}
+
+to get:
+
+\begin{equation*}
+    v\cdot w = acX^2 + ((ac + bd) - (a - b)(c - d))X + bd
+\end{equation*}
+
+Now if for instance $v$ and $w$ were 2 digit numbers, we would normally perform 4 digit by digit multiplications but with this new method, we end up performing only 3 and a trivial subs traction. 
+\\
+As a general result, for multiplication of two k by k digit numbers, we end up performing $3^{\log_{2}k}$ multiplications and $log_{2}k$ many additions. Finally, notice that Karatsuba is a recursive algorithm. 
+\subsubsection{Two's compliment}
+Consider how a computer is to represent negative integers. A very smart way of doing so is \textbf{two's compliment}. That is given a binary representation, we invert all 1's with 0's and all 0's with 1's and then add 1. Note that now the 0's take the role of 1's and vice versa. The reason for adding 1 is that the most significant digit is reserved for the sign. A 1 is a negative, a 0 a positive.  
 
 
 
