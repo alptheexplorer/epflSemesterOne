@@ -16,7 +16,7 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 
 \newtheorem{thm}{Theorem}
-\newtheorem{remark}{Remark}
+\newtheorem{remark}{Remark}[section]
 \newtheorem{theorem}{Theorem}
 \newtheorem{prop}{[Proposition]}
 \newtheorem{definition}{Definition}
@@ -319,6 +319,73 @@ To prove the above:
 Take $|x+y| < 0$. Then $|x+y| = -(x+y) = -x -y \leq |x| + |y|$ Take $|x+y| \geq 0$. Then $|x+y| = x + y \leq |x| + |y|$
     \tag*{\qedhere}
 \end{proof}
+\clearpage
+\section{Sequences}
+
+\begin{tcolorbox}
+Let's begin by formally defining sequences. A sequence is a function $f:\mathbb{N} \to \mathbb{R}$ generally denoted $(x_{n})_{n\geq0}$ And here are some more definitions on sequences:
+\\
+A sequence is:
+\begin{itemize}
+    \item constant if $\exists \ C \in \mathbb{R};\ x_{n} = C \ \forall \ n \in \mathbb{N}$
+    \item bounded from below(resp. above) if $\exists \ m \in \mathbb{R} \ ; m \leq x_{n} \forall \ n \in \mathbb{N}$
+    \item bounded if bounded from both directions
+    \item increasing(resp. decreasing) if $x_{n+1} \geq x_{n} \forall \ n \in \mathbb{N}$
+    \item strictly increasing(resp.decreasing) if $x_{n+1} \leq x_{n} \forall \ n \in \mathbb{N}$
+    \item monotonous if it is increasing or decreasing(resp. strictly)
+\end{itemize}
+\end{tcolorbox}
+
+Let's now consider a proof on the following proposition:
+
+\begin{tcolorbox}
+Define $x_{n} = \sqrt{4 + x_{n-1}}, \ x_{0} = 1$. We claim that $x_{n}$ is bounded and more precisely that $1 \leq x \leq 3$.
+
+\begin{proof}
+Base case: $x_{0} = 1$ hence holds.
+\\
+Now supposing proposition is true for all $n-1$ we get
+
+$$ 1 \leq x_{n-1} \leq 3 $$
+$$ 5 \leq x_{n-1} + 4 \leq 7$$
+
+Now we get:
+
+$$ \sqrt{5} \leq \sqrt{x_{n-1} + 4} \leq \sqrt{7}$$
+$$ 1 \leq \sqrt{5} \leq \sqrt{x_{n-1} + 4} \leq \sqrt{7} \leq 3 $$
+\tag*{\qedhere}
+\end{proof}
+\end{tcolorbox}
+
+
+\begin{definition}
+A sequence $x_{n} $\mathbb{diverges} to $x$ if $\forall \epsilon > 0$ we can find $n_{0} \in \mathbb{N}$ such that $n\geq n_{0} \rightarrow |x_{n} - x| \leq \epsilon $
+\end{definition}
+
+Now in an intuitive sense, suppose the sequence converges to $x$ from both the right and the left. $x$ being our central point, we move a distance $\epsilon$ away from this $x$. Now, if we can pick some $n_{0}$ such that for another $n \geq n_{0}$ we have that $|x_{n} - x| \leq \epsilon$ this means that no matter how small we make epsilon we are able to find some $x_{n}$ in this region. 
+\\
+Having established convergence, any sequence that is not convergent is said to be \textbf{divergent}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
