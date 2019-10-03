@@ -15,11 +15,11 @@ right  = 2.75cm]{geometry}
 \lhead{Analysis 1}
 \rhead{EPFL/Alp Ozen}
 
-\newtheorem{thm}{Theorem}
 \newtheorem{remark}{Remark}[section]
-\newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{prop}{[Proposition]}
 \newtheorem{definition}{Definition}
+\numberwithin{equation}{subsection}
 
 \title{Analysis}
 \author{SemesterOne analysis at EPFL}
@@ -322,6 +322,7 @@ Take $|x+y| < 0$. Then $|x+y| = -(x+y) = -x -y \leq |x| + |y|$ Take $|x+y| \geq 
 \clearpage
 \section{Sequences}
 
+\subsection{Basics}
 \begin{tcolorbox}
 Let's begin by formally defining sequences. A sequence is a function $f:\mathbb{N} \to \mathbb{R}$ generally denoted $(x_{n})_{n\geq0}$ And here are some more definitions on sequences:
 \\
@@ -359,12 +360,67 @@ $$ 1 \leq \sqrt{5} \leq \sqrt{x_{n-1} + 4} \leq \sqrt{7} \leq 3 $$
 
 
 \begin{definition}
-A sequence $x_{n} $\mathbb{diverges} to $x$ if $\forall \epsilon > 0$ we can find $n_{0} \in \mathbb{N}$ such that $n\geq n_{0} \rightarrow |x_{n} - x| \leq \epsilon $
+A sequence $x_{n} $\mathbb{conveges} to $x$ if $\forall \epsilon > 0$ we can find $n_{0} \in \mathbb{N}$ such that $n\geq n_{0} \rightarrow |x_{n} - x| \leq \epsilon $
 \end{definition}
 
 Now in an intuitive sense, suppose the sequence converges to $x$ from both the right and the left. $x$ being our central point, we move a distance $\epsilon$ away from this $x$. Now, if we can pick some $n_{0}$ such that for another $n \geq n_{0}$ we have that $|x_{n} - x| \leq \epsilon$ this means that no matter how small we make epsilon we are able to find some $x_{n}$ in this region. 
 \\
 Having established convergence, any sequence that is not convergent is said to be \textbf{divergent}. 
+\\
+Let's now prove that a sequence is divergent. 
+
+\begin{tcolorbox}
+
+\begin{proof}
+
+Take $x_{n} = (-1)^{n}$ Now suppose that $x_{n}$ converges to $x$. Then for $\epsilon = \frac{1}{2}, \ \exists n_{\frac{1}{2}} \in \mathbb{N}$ s.t. $\forall n \geq n_{\frac{1}{2}}$ we would have $|x_{n} - x| \leq \frac{1}{2}$. In particular if $n^{\prime}$ is any other integer $n^{\prime}>n_{\frac{1}{2}}$ then we would have $x_{n} - x_{n^{\prime}} \leq |x_{n} - x| + |x - x_{n^{\prime}}| \leq \frac{1}{2} + \frac{1}{2}$ which implies a contradiction as $|x_{n} - x_{n+1}| = 2 > 1$
+\tag*{\qedhere}
+\end{proof}
+\end{tcolorbox}
+
+\subsection{Limits and their algebra}
+\begin{definition}
+If a sequence $x_{n}$ converges to some $x$, we say that $x$ is the \textbf{limit} of the sequence and is denoted $\lim_{n\to \infty}{x_{n}} = x $ 
+\end{definition}
+
+Here are some properties of limits:
+
+\begin{tcolorbox}
+For sequences $x_{n}$ and $y_{n}$ with limits $x,y$ we have:
+\begin{itemize}
+    \item $$\lim_{n \to \infty} {x_{n} \cdot y_{n}} =  x\cdot y $$
+    \item $$\lim_{n \to \infty} {x_{n} + y_{n}} =  x+y $$
+    \item $$\lim_{n \to \infty} \frac{x_{n}}{y_{n}} = \frac{x}{y} ; y \not = 0$$
+    \item if $\exists \ n_{0} \in \mathbb{N}, \ x_{n} \leq y_{n} \ \forall n \geq n_{0}$ then $x\leq y$ 
+\end{itemize}
+\end{tcolorbox}
+
+We now introduce the famous \textbf{squeeze theorem} and prove it. 
+
+\begin{theorem}
+Squeeze theorem
+\\
+Let $a_{n}$ and $b_{n}$ be both sequences that converge to $a$. In addition, let $c_{n}$ be such that $ \exists n_{0} \in \mathbb{N}, \ \forall n \geq n_{0}, \ a_{n} \leq c_{n} \leq b_{n}$ Then we clearly have the following:
+\begin{equation}
+\label{1}
+\forall \epsilon > 0, \ \exists N_{1}, \ n \geq N_{1} \rightarrow |a_{n} - a| < \epsilon \equiv a - \epsilon < a_{n} < a + \epsilon
+\end{equation}
+Similarly, for $b_{n}$ we have that:
+\begin{equation}
+\label{2}
+     \forall \epsilon > 0, \ \exists N_{2}, \ n \geq N_{2} \rightarrow |b_{n} - a| < \epsilon \equiv b - \epsilon < b_{n} < a + \epsilon
+\end{equation}
+Now set $N = \max{\{N_{1},N_{2},n_{0}\}}$. Now since $N \geq N_{1},N_{2},n_{0}$ we have that both \ref{1} and \ref{2} hold $\forall n > N$ This further gives us the result that:
+\begin{proof}
+\begin{align*}
+    a - \epsilon < a_{n} \leq c_{n} \leq b_{N} < a + \epsilon \\
+    |c_{n} - a| < \epsilon
+\end{align*}
+\tag*{\qedhere}
+\end{proof}
+
+
+\end{theorem}
 
 
 
