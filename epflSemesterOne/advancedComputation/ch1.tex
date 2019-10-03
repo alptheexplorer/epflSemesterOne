@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{proof}
+\usepackage{float}
 \theoremstyle{definition}
 
 
@@ -24,7 +25,10 @@ right  = 2.75cm]{geometry}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
 \newtheorem{definition}{Definition}
+\numberwithin{equation}{subsection}
+\numberwithin{remark}{subsection}
 \newtheorem{question}{Question \textit{???}}
 \begin{document}
 
@@ -275,6 +279,32 @@ Now if for instance $v$ and $w$ were 2 digit numbers, we would normally perform 
 As a general result, for multiplication of two k by k digit numbers, we end up performing $3^{\log_{2}k}$ multiplications and $log_{2}k$ many additions. Finally, notice that Karatsuba is a recursive algorithm. 
 \subsubsection{Two's compliment}
 Consider how a computer is to represent negative integers. A very smart way of doing so is \textbf{two's compliment}. That is given a binary representation, we invert all 1's with 0's and all 0's with 1's and then add 1. Note that now the 0's take the role of 1's and vice versa. The reason for adding 1 is that the most significant digit is reserved for the sign. A 1 is a negative, a 0 a positive.  
+
+\subsection{Lec 05. notes}
+\subsubsection{Main points}
+In this lecture quantifiers and their properties were discussed along with common pitfalls. 
+\\
+Consider defining a proposition on some sub-domain. That is take $D = \{0,1,2\}, S = \{2\}$ Now we want to express the proposition $\forall x \in S, P(x)$ where $P(x)$ is to mean that $x$ is even in the form $\forall x Q(x)$. A major mistake made is to try and express this as $x \in S \land P(x) \equiv Q(x)$ Now clearly $\forall x Q(x) \not \equiv \forall x \in S, P(x) $ as taking $x=1$ leads to the LHS being false. So here is the correct way to do this: Let $Q(x) \equiv x\in S \rightarrow P(x)$. It is now the case that $\forall x Q(x) \equiv \forall x \in S, P(x)$. Therefore we have that:
+
+\begin{align}
+    \forall x \in S, P(x) \equiv \forall x(x\in S \rightarrow P(x))\\
+    \exists x \in T P(x) \equiv \exists x( x\in T \land P(x))
+\end{align}
+
+\begin{remark}
+Note that both $\exists$ and $\forall$ have precedence over any other logical operator. 
+\end{remark}
+
+We would also like to point out that whenever we have an empty domain, then both $\exists x P(x)$ and $\exists x \neg P(x)$ are both false. Similarly, $\forall x P(x)$ and $\forall x \neg P(x)$ are both true. 
+\\
+We now ask, how do we negate the quantifiers?
+
+\begin{align}
+    \neg(\exists x P(X)) \equiv \forall x \neg P(x)\\
+    \neg(\forall x P(X)) \equiv \exists x \neg P(x) 
+\end{align}
+And we add the note that the same negation rules also hold for qunatifiers over a subdomain.
+
 
 
 

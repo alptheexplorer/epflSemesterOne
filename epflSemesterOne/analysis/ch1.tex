@@ -5,6 +5,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{float}
 \usepackage[
 top    = 2.50cm,
 bottom = 2.50cm,
@@ -401,6 +402,7 @@ We now introduce the famous \textbf{squeeze theorem} and prove it.
 Squeeze theorem
 \\
 Let $a_{n}$ and $b_{n}$ be both sequences that converge to $a$. In addition, let $c_{n}$ be such that $ \exists n_{0} \in \mathbb{N}, \ \forall n \geq n_{0}, \ a_{n} \leq c_{n} \leq b_{n}$ Then we clearly have the following:
+\begin{proof}
 \begin{equation}
 \label{1}
 \forall \epsilon > 0, \ \exists N_{1}, \ n \geq N_{1} \rightarrow |a_{n} - a| < \epsilon \equiv a - \epsilon < a_{n} < a + \epsilon
@@ -411,17 +413,31 @@ Similarly, for $b_{n}$ we have that:
      \forall \epsilon > 0, \ \exists N_{2}, \ n \geq N_{2} \rightarrow |b_{n} - a| < \epsilon \equiv b - \epsilon < b_{n} < a + \epsilon
 \end{equation}
 Now set $N = \max{\{N_{1},N_{2},n_{0}\}}$. Now since $N \geq N_{1},N_{2},n_{0}$ we have that both \ref{1} and \ref{2} hold $\forall n > N$ This further gives us the result that:
-\begin{proof}
+
 \begin{align*}
     a - \epsilon < a_{n} \leq c_{n} \leq b_{N} < a + \epsilon \\
     |c_{n} - a| < \epsilon
 \end{align*}
 \tag*{\qedhere}
 \end{proof}
-
-
 \end{theorem}
 
+
+We now list some useful inequalities that may be used along with the squeeze theorem and also a sample limit problem and a solution to it:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.9]{epflSemesterOne/analysis/figures/usefula.JPG}
+    \caption{Useful inequalities}
+    \label{fig1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/analysis/figures/usefula2.JPG}
+    \caption{Solution to hard limit problem}
+    \label{fig2}
+\end{figure}
 
 
 
