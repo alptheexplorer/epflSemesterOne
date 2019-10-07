@@ -17,6 +17,9 @@ right  = 2.75cm]{geometry}
 \newtheorem{thm}{Theorem}[subsection]
 \newtheorem{property}{Property}
 \newtheorem{cor}{Corollary}[subsection]
+\newtheorem{prop}{[Proposition]}
+\newtheorem{definition}{Definition}
+\numberwithin{equation}{subsection}
 
 \title{Linear Algebra 1}
 \author{alp.ozen}
@@ -341,6 +344,122 @@ A linear $T$ maps linear line segments in $\mathbb{R}^{n}$ to linear line segmen
   In general, the columns of a matrix are the dimensions of the domain set and the rows of the matrix are the codomain. 
 \end{tcolorbox}
 
+\begin{thm}
+Let $T$ be a square matrix, that is $T:\mathbb{R}^n \to \mathbb{R}^n$. Then, T is surjective iff it is injective. 
+\end{thm}
+
+\begin{proof} Proving both directions:
+\\
+($\rightarrow$) (T is injective iff T is surjective)
+\\
+Now whenever T is surjective, we have that there are no rows of 0. It also means that each row has a pivot. Given this, we check the condition that $T(v_{1}) = T(v_{2}) \rightarrow v_{1} = v_{2}$ Now we would essentially obtain this in trying to solve it:
+\begin{equation*}
+    T \times v = a
+\end{equation*}
+where $a \in \mathbb{R}^n$. Now because the reduced matrix has no 0 row and as many pivots as the number of variables, we get that there is only one such $v$ resulting in $v_{1} = v_{2}$
+\\
+($\leftarrow$) (T is surjective iff T is injective)
+From $T$ is injective, we get that there is only one solution to $T \times v = a$ and considering the homogeneous $Tv=0$ we get that only 0 would be the solution implying columns of T are a basis hence must span $\mathbb{R}^n$
+ \tag*{\qedhere}
+
+\end{proof}
+
+\subsection{Linear transformations}
+
+\begin{definition}
+A linear map is function between $\mathbb{R}^n \to \mathbb{R}^m$ such that:
+\begin{align*}
+    i) \ cT(v) = T(cv) \forall c \in \mathbb{R}, \forall v \in \mathbb{R}^n\\
+    ii) \ T(v + u) = T(v) + T(u) \forall v,u \in \mathbb{R}^n
+\end{align*}
+\end{definition}
+
+A condition equivalent to a linear map is:
+\begin{prop}
+Whenever we can show that for some $T$, $T(cv_{1} + dv_{2}) = cT(v_{1}) + dT(v_{2})$, we have that $T$ is a linear map.
+\end{prop}
+
+\begin{proof}(We must show both conditions i) and ii) defined above)
+\\
+
+Now showing i) is simple. Simply fix $d=0$. Then we get that $T(cv_{1} + 0) = cT(v_{1})$.
+\\
+
+To show ii), fix $c,d$ to be 1 and there we have it!
+
+\end{proof}
+
+
+\begin{thm}
+For a linear transformation $T:\mathbb{R}^n \to \mathbb{R}^m$, there exists a unique $m\times n$matrix $A$ such that $T(x) = Ax$
+\end{thm}
+
+\begin{proof}
+Now, we can write $x$ as $I_{n}x$ from which we get $\begin{bmatrix}
+    e_{1} \ldots e_{n}
+\end{bmatrix}x = x_{1}e_{1} + \ldots + x_{n}e_{n}$. Taking $T(x)$ we obtain $x_{1}T(e_{1}) + \ldots + x_{n}T(e_{n})$ which is equal to $$\begin{bmatrix}
+    T(e_{1}) \ldots T(e_{n})
+\end{bmatrix} \begin{bmatrix}
+    x_{1} \\
+    \vdots \\
+    x_{n} 
+\end{bmatrix}$$
+\end{proof}
+
+And here are some examples to capturing linear transforms as matrices mainly in $\mathbb{R}^2$
+\begin{example}
+\begin{enumerate}
+    \item Anti-clockwise rotation by $\theta$ degrees. $A = \begin{bmatrix}
+        \cos{\theta} & -\sin{\theta}\\
+        \sin{\theta} & \cos{\theta}
+    \end{bmatrix}$ 
+    \item $T(x) = 3x$ for $x \in \mathbb{R} ^ 2$, then $A = \begin{bmatrix}
+        3 & 0 \\
+        0 & 3
+    \end{bmatrix}$
+    \item Reflection through the y-axis $A = \begin{bmatrix}
+        -1 & 0\\
+        0 & 1
+    \end{bmatrix}$
+    \item Contraction or an expansion depending on $k$ $ A = \begin{bmatrix}
+        k & 0\\
+        0 & 1
+    \end{bmatrix}$ 
+    \item Shear $\begin{bmatrix}
+        1 & k\\
+        0 & 1
+    \end{bmatrix}$
+    \item Projection $\begin{bmatrix}
+        0 & 0\\
+        0 & 1
+    \end{bmatrix}$
+    
+\end{enumerate}
+\end{example}
+
+
+And now we present some theorems relating to surjectivity and injectivity:
+
+\begin{thm}
+Taking $T: \mathbb{R}^n \to \mathbb{R}^m$ we have that $T$ is injective iff the homogeneous $T(x) = 0$ has the trivial solution. 
+\end{thm}
+
+\begin{proof}(To show this, we show that the two statements always have the same truth value, that they are equivalent)
+
+Now when $T(x)$ is injective, it means that $T(x) = 0$ can have only a unique solution by definition of injectivity. Now when $T(x)$ is not injective, it means that $\exists b$ s.t. $T(u) = b$ and $T(v) = b$ where $u \not = v$. Now $T(u) - T(v) = b-b = 0 = T(u-v)$ and since $u\not=v$ we have that $0$ is not the only solution.
+\end{proof}
+
+\section{Matrix algebra}
+
+\begin{property}
+Properties of the matrix transpose:
+\begin{align*}
+    (A^T)^T = A\\
+    (A + B)^T = A^T + B^T\\
+    (rA)^T = rA^T\\
+    (AB)^T = B^TA^T
+\end{align*}
+\end{property}
 
 
 

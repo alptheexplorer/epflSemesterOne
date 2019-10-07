@@ -279,6 +279,10 @@ Now if for instance $v$ and $w$ were 2 digit numbers, we would normally perform 
 As a general result, for multiplication of two k by k digit numbers, we end up performing $3^{\log_{2}k}$ multiplications and $log_{2}k$ many additions. Finally, notice that Karatsuba is a recursive algorithm. 
 \subsubsection{Two's compliment}
 Consider how a computer is to represent negative integers. A very smart way of doing so is \textbf{two's compliment}. That is given a binary representation, we invert all 1's with 0's and all 0's with 1's and then add 1. Note that now the 0's take the role of 1's and vice versa. The reason for adding 1 is that the most significant digit is reserved for the sign. A 1 is a negative, a 0 a positive.  
+\\
+\begin{remark}
+Note that when multiplying two numbers with non-matching number of digits, we simply pad both numbers with 0's until both have number of digits that are a power of 2. 
+\end{remark}
 
 \subsection{Lec 05. notes}
 \subsubsection{Main points}
@@ -303,7 +307,60 @@ We now ask, how do we negate the quantifiers?
     \neg(\exists x P(X)) \equiv \forall x \neg P(x)\\
     \neg(\forall x P(X)) \equiv \exists x \neg P(x) 
 \end{align}
-And we add the note that the same negation rules also hold for qunatifiers over a subdomain.
+And we add the note that the same negation rules also hold for quantifiers over a sub-domain. Here is an example proof:
+
+\begin{align*}
+    \equiv \neg \forall x \in S \ P(x) \equiv \neg (\forall x \in S \rightarrow P(x))\\
+    \equiv \exists x \neg(x \in S \rightarrow P(x))\\
+    \equiv \exists x \neg(x \not \in S \lor P(x))\\
+    \equiv \exists x (x \in S \land \neg P(x))\\
+    \equiv \exits x \in S, \ \neg P(x)
+\end{align*}
+
+\subsection{Lec 06. notes}
+
+First of all, we note that when solving CMOS problems, always check if the circuit is complementary. That is whenever the upper part is 1, lower part must be disconnected. Hence if the upper part evaluates $A\land B$, lower part must evaluate $\neg(A \land B)$
+
+Here is a nice CMOS circuit problem from week 3:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{epflSemesterOne/advancedComputation/figures/cmos2.JPG}
+    \caption{PSET3 cmos problem}
+    \label{fig:my_label}
+\end{figure}
+
+Here's how I solved it:
+\\
+Now notice that $X=1$ iff. $(B=0 \land \neg A = 0) \lor (\neg B = 0 \land A = 0)$ Thus we obtain:
+\begin{align*}
+    (\neg B \land A) \lor (B \land \neg A)\\
+    \equiv \neg(B\lor \neg A) \lor \neg(\neg B \lor A)\\
+    \equiv \neg(A \rightarrow B) \lor \neg(B \rightarrow A)\\
+    \equiv \neg ((A \rightarrow B) \land (B \rightarrow A))\\
+    \equiv \neg (A \iff B)
+\end{align*}
+\clearpage
+
+
+And here is some more details on two's compliment:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1.2]{epflSemesterOne/advancedComputation/figures/twosc.JPG}
+    \caption{More on two's compliment}
+    \label{fig:my_label}
+\end{figure}
+
+And now let's say a little more about two's complement. That is, two's compliment simply represents the additive inverse of a number in $\bmod{2^k}$ That is, suppose we wanted some $b$ such that $a + b \equiv 0 \bmod{2^k}$, then we'd have that $b = 2^{k} - a$ Which is essentially the formula for two's complement for a given bit architecture. 
+
+
+
+
+
+
+
+
 
 
 

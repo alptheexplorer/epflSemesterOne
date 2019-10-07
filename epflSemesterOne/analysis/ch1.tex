@@ -439,6 +439,96 @@ We now list some useful inequalities that may be used along with the squeeze the
     \label{fig2}
 \end{figure}
 
+\subsection{More on sequences}
+Suppose we want to show that some geometric sequence does not have a limit, simply that it is not converging.
+
+We first establish the \textit{Bernoulli inequality} which we shall prove later. We will use this result immediately. 
+
+\begin{equation}
+    q^n \geq 1 + n(q-1)
+\end{equation}
+
+\begin{tcolorbox}
+Take $x_{n} = 4^n$. Now we claim that $x_{n}$ is not bounded.
+\begin{proof}
+It is not bounded if we can show that it increasing in increments that do not decrease. Suppose now that $b$ is some upper bound to $x_{n}$. Now by Bernoulli, we have that $4^n \geq 1 + n^\cdot3$. If we can show that $4^n \geq 1 + n\cdot3 > b$ we indeed get that there can be no upper bound $b$. We have that $n > \frac{b-1}{3}$ and such an $\n \in \mathbb{N}$ exists if we set it to $n:= [\frac{b-1}{3} + 1]$ Now since $4^n \geq 1 + n\cdot3$ we have that $x_{n}$ is not bounded. 
+
+\end{proof}
+\end{tcolorbox}
+
+\begin{theorem}
+Every converging sequence is bounded(a lower or upper bound exists obviously and if convergent the latter also exists.)
+\end{theorem}
+
+\clearpage
+
+Let's now get on to proving the rules we established for limit arithmetic.
+
+\begin{proof}(Proof to sum rule)
+Now we are given that $x_{n}$ converges to $x$ and that $y_{n}$ converges to $y$. We want to show that $x_{n} + y_{n}$ converges to $x+y$. By definition, this is true if we can show that 
+\begin{equation*}
+    |(x_{n} + y_{n}) - (x+y)| \leq \epsilon, \ \forall \epsilon \in \mathbb{R}
+\end{equation*}
+
+Now luckily we have that $|(x_{y} + y_{n}) - (x+y)| = |(x_{n} - x) + (y_{n} - y)|$ And by the triangle inequality we know that $|(x_{n} - x) + (y_{n} - y)| \leq |x_{n}-x| + |y_{n} - y|$ Thus if we can show that $|x_{n}-x| + |y_{n} - y| < \epsilon$ we are guaranteed that $|(x_{n} - x) + (y_{n} - y)| < \epsilon$ We will succeed with the latter part if we can show that both parts $(x_{n} - x)$ and $(y_{n} - y)$ are smaller than $\frac{\epsilon}{2}$. Now we have by definition of convergence that:
+
+$$ \exists n \geq n_{\frac{\epsilon}{2}}^{x} \rightarrow |x_{n} - x| \leq \frac{\epsilon}{2}$$
+Similarly:
+
+$$ \exists n \geq n_{\frac{\epsilon}{2}}^{y} \rightarrow |y_{n} - y| \leq \frac{\epsilon}{2}$$
+Now fixing $n_{\epsilon} := \max{n_{\frac{\epsilon}{2}}^{x}, n_{\frac{\epsilon}{2}}^{y}}$(we do this since it assures both conditions to hold we have that because each of $(x_{n} - x)$ and $(y_{n} - x)$ are smaller than $\epsilon$, so must $|x_{n}-x| + |y_{n} - y|$ by the triangle inequality. 
+\end{proof}
+
+
+Let's now do more applications of the squeeze theorem to show limits. 
+\begin{example}
+We want to show that $aq^{n}$ converges to $0$ for $a\not = 0$ and $|q|<1$. Now as a property we use that $\lim_{n\to\infty}{x_{n}} = 0 \rightarrow \lim_{n\to\infty}{|x_{n}|}=0$ It is clear that we have an inequality of the form $0\leq|aq^{n}|\leq ?$ Doing more algebra(our goal is to find another sequence of form $\frac{1}{x}$ converging to 0 to get:
+
+$$ \frac{1}{?} \leq \frac{1}{|a\cdot q^n|} = \frac{1}{|a|} \cdot (\frac{1}{|q|})^n$$
+
+Now using Bernoulli we have:
+
+$$(\frac{1}{|q|})^n \geq 1 + n(\frac{1}{|q|}-1)$$ which happily means:
+
+$$(\frac{1}{a}\cdot\frac{1}{|q|})^n \geq (\frac{1}{a}\cdot(1 + n(\frac{1}{|q|}-1))$$ 
+And finally taking the reciprocal all to get back to $aq^n$ we are left with 
+
+$$ 0 \leq |aq^n| \leq \frac{1}{\frac{1}{a}\cdot(1+n(\frac{1}{|q|}-1)}$$ and clearly we see that the RHS is also a sequence that converges to 0 since all terms in the denominator but $n$ are constants. Hence, we have \textbf{squeezed} our sequence. The key here was that we found a RHS sequence which we wanted to be of form $\frac{1}{x}$ And in addition, we took the reciprocal of the inequality at the start simply to be able to use the bernoulli inequality. 
+\end{example}
+
+Let's now consider a harder example.
+
+\begin{example}
+Consider the sequence $x_{n} = \sqrt[n]{n}$ Now is this sequence converging? Well we know that $1\leq\sqrt[n]{n}$ and now another sequence we know which approaches to 1 is $1 + \frac{1}{\sqrt{n}}$. Now we only need to show that:
+
+$$\sqrt[n]{n} \leq 1 + \frac{1}{\sqrt{n}} $$ holds and if we can show this, we'll have that our sequence converges to 1. 
+
+Now we get:
+$$ n \leq (1 + \frac{1}{\sqrt{n}})^n$$ And notice how $(1 + \frac{1}{\sqrt{n}})^n$ is simply a binomial hence if any one of the terms in the binomial expansion is greater than $n$ our inequality will hold(this works as all $n$ are positive). Well for $\sum_{i=0}^{n}{n\choose i}(\frac{1}{\sqrt{n})^{i}}$ when observe that for $i=4$ we get:
+
+$$\frac{(n-1)(n-2)(n-3)}{24n} \geq n$$ further reducing to:
+$$\frac{24n^2}{(n-1)(n-2)(n-3)} \leq 1$$ and we know this is valid as 
+
+$$\lim_{n\to\infty}{\frac{24n^2}{(n-1)(n-2)(n-3)}} = 0$$
+ 
+Hence we get that $$\sqrt[n]{n} \leq 1 + \frac{1}{\sqrt{n}} $$ meaning that $\sqrt[n]{n}$ converges to 1. 
+\end{example}
+
+Let's do one last example:
+
+\begin{example}
+Consider $x_{n} = \frac{2^n}{x!}$ Now clearly $0\leq\frac{2^n}{x!}$ and observing that $\frac{2^n}{x!} = \frac{2}{1} \cdot \frac{2}{2} \cdot \frac{2}{3} \ldots $ it is obvious that $\frac{2^n}{x!} \leq 2 \cdot (\frac{2}{3})^{n-2}$ But we know that $\lim_{n\to\infty}{2 \cdot (\frac{2}{3})^{n-2}}=0$ hence we have again squeezed our sequence!
+\end{example}
+
+\begin{theorem}
+If $\lim_{n\to\infty}{x_{n}}=0$ and $y_{n}$ is bounded, then $\lim_{n\to\infty}{x_{n}\cdot y_{n}}=0$
+\end{theorem}
+
+\begin{proof}
+Now because $y_{n}$ is bounded, we have that $\exists M$ s.t. $M\geq y_{n} \forall n$. Hence we obtain that $x_{n}y_{n} \leq Mx_{n}$ and clearly since $Mx_{n}$ converges to $0$ we have squeezed $x_{n}y_{n}$ and have that it also converges to 0. 
+\end{proof}
+
+
 
 
 
