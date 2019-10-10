@@ -355,6 +355,80 @@ And here is some more details on two's compliment:
 And now let's say a little more about two's complement. That is, two's compliment simply represents the additive inverse of a number in $\bmod{2^k}$ That is, suppose we wanted some $b$ such that $a + b \equiv 0 \bmod{2^k}$, then we'd have that $b = 2^{k} - a$ Which is essentially the formula for two's complement for a given bit architecture. 
 
 
+\subsection{Lec 07. notes}
+
+We consider how to negate the $\exists!$ expression. Realize that:
+$$\exists!xP(x) \equiv \exists x(P(x)\land P(y) \rightarrow (x+y))$$
+And hence the negation(using our negation laws gives):
+$$\neg\exists ! xP(x) \equiv P(x) \rightarrow \exists y \not = xP(y))$$
+\\
+And two demonstrate the importance of nesting order on quantifiers, consider this excerpt:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{epflSemesterOne/advancedComputation/figures/nesting.JPG}
+    \caption{Nesting order demo}
+    \label{fig:my_label}
+\end{figure}
+
+And notice here how $\exists x \forall y S(x,y) \rightarrow \forall y \exists x S(x,y)$ This makes sense as whenever an x exists for each y, we have to have that for all y, there is an x. 
+\\
+\clearpage
+And now we come to rules of inference for qunatifiers. 
+
+\begin{definition}
+\\
+\textbf{Universal instantiation} 
+\begin{equation*}
+    \infer{P(c)}{\forall x P(x)}
+\end{equation*}
+\textbf{Universal generalization}
+\begin{equation*}
+        \infer{\forall x P(x)}{P(x) \text{for arbitrary x}}
+\end{equation*}
+And we note that the same hold respectively for the existential quantifier. 
+\end{definition}
+
+And finally we present an application of rules of inference. Suppose the following:
+\\
+$H(x):$ x is here
+\\
+$U(x):$ x likes C
+\\
+$L(x)$ x is a fan of D.R.(Denis Ritchie)
+\\
+Now we assert the following:
+\\
+(1) There is someone here who likes C
+\\
+(2) Everyone who likes C is a fan of D.R.
+\\
+Hence we get:
+$$(1) \equiv \exists x(H(x) \land U(x))$$
+$$(2) \equiv \forall x(U(x) \rightarrow L(x))$$
+Now what may we infer from these?
+\\
+Well we know  $\exists x(H(x) \land U(x))$ hence we by instantiation we have $H(c) \land U(c)$ then $U(c),H(c)$ and since $ \forall x(U(x) \rightarrow L(x))$ to give $U(c) \rightarrow L(c), L(c)$ and finally $$H(c)\land L(c)$$
+
+\subsection{Lec 08. notes}
+A \textbf{proof} is a vald argument establishing the truth of a statement. 
+\\
+We list some common proof methods and elaborate:
+\\
+\textbf{Direct proof:} When trying to prove a statement like $p \rightarrow q$ we consider the only case that $p \rightarrow q$ would be false and show that it can not happen. That is we take $p$ true and using our inference laws, reach that $q$ must be true as well 
+\\
+\textbf{Proof by contraposition:} Since $p\rightarrow q \equiv \neg q \rightarrow \neg p$ we try to show that the contrapositive holds via a direct proof. And here's a mini-example: Consider the statement \textit{if $n$ is an integer then $3n+2$ is odd.} Now suppose $3n+2$ is even to give $3n+2 = 2k, \ k\in \mathbb{N}$ Then we have that $n=\frac{2k-2}{3}$ and taking $k=2$ suffices to show $n$ is not an integer. 
+\\
+\textbf{Proof by contradiction:} Firstly, proof by contradiction is often confused with proof by contraposition. We use proof by contradiction to show that a statement $p$ is true. To do this, if we can show that $\neg p \rightarrow q$ is true where $q$ is always false, we have that $\neg p$ is false hence $p$ true. A common example is showing that $\sqrt{2}$ is irrational. We take the negation of $p$ that $\sqrt{2}$ is rational and derive the contradiction that whenever we try to write $\sqrt{2} = \frac{z}{k}$ with $\gcd{z}{k} = 1$ that $\gcd{z}{k} = 1 \land \gcd{z}{k} \not = 1$ Thus the falsity of $p$ implies a contradiction(false value) showing that $p$ itself must be true. 
+\\
+Similarly suppose we have statement $p\equiv a \rightarrow b$. We know that $\neg p \rightarrow a \land \neg b$ and get that $a\land \neg b$ is always false showing that $p$ must be true. 
+
+
+
+
+
+
+
 
 
 
