@@ -18,6 +18,7 @@ right  = 2.75cm]{geometry}
 \newtheorem{property}{Property}
 \newtheorem{cor}{Corollary}[subsection]
 \newtheorem{prop}{[Proposition]}
+\newtheorem{rem}{Remark}[subsection]
 \newtheorem{definition}{Definition}
 \numberwithin{equation}{subsection}
 
@@ -462,6 +463,53 @@ Properties of the matrix transpose:
 \end{property}
 
 
+
+\begin{property}
+\begin{align*}
+    A + B = B + A\\
+    (A + B) + C = A + (B + C)\\
+    A + 0 = A\\
+    r(A + B) = rA + rB\\
+    (r+s)A = rA + rS\\
+    rs(A) = r(sA)
+\end{align*}
+\end{property}
+
+And here is the general formula for the $i-j^{th}$ entry of $AB$ whenever defined:
+
+$$(AB)_{ij} = a_{i1}b_{1j} + \ldots + a_{in}b_{nj}$$
+
+\begin{remark}
+We note that Matrices who's entries belong to $\mathbb{R}$ form a vector space.
+\end{remark}
+
+And now some warnings about matrix multiplication. We note that in general if $AB = AC$ then it does not hold that $B=C$ And if $AB=0$ we can not conclude that $A$ or $B$ is $0$. We also note that whenever a matrix has entries only along its main diagonal, then to take any power, we simply take the power of each diagonal entry. 
+\\
+A transpose of a matrix is defined as swapping the rows of $A$ with its columns. \\
+\begin{thm}
+A matrix $A$ is invertible if $\exists C$ s.t. $AC = I , CA=I$ meaning that the inverse is unique. Non-invertible matrices are called \textbf{singular}. And note that only square matrices are invertible. The reason for this is that for a matrix to be invertible, it must be bijective which can only be the case if it is square 
+\end{thm}
+
+\begin{proof}(Proving that the inverse matrix is unique)
+Suppose $\exists B,C s.t. AB = I, \ AC=I$. We want to show that $B = C$.
+\\
+$B = BI = BAC = IC = C$
+\end{proof}
+
+
+\subsection{Computing inverses}
+
+The way we find inverses is best done by Gaussian elimination. We are simply looking for a solution to the equation $Ax=I$ hence we write this as an augmented matrix $\begin{bmatrix}
+    A | I
+\end{bmatrix}$ and solve. 
+
+\begin{thm}
+\textbf{Elementary} matrices are obtained by only performing one elementary row operation on an identity matrix, thus all elementary matrices are invertible.
+\end{thm}
+
+\begin{thm}
+Because inverses are only defined on bijective mappings, whenever a square matrix is invertible, we have that $Ax=b$ has a unique solution $x = A^{-1}b$
+\end{thm}
 
 
 
