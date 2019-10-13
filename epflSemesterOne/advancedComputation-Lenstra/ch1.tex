@@ -20,8 +20,8 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}
 
-\title{Advanced Computation}
-\author{alp.ozen}
+\title{Advanced Computation 1 - CS 101}
+\author{Alp Ozen}
 \date{\vspace{-5ex}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{example}{Example}
@@ -33,7 +33,7 @@ right  = 2.75cm]{geometry}
 \begin{document}
 
 \maketitle
-\section{Propositional logic }
+\section{Propositional logic and notions of sets(Week 1 - Week 4)}
 \subsection{Propositions}
 A proposition is a declarative sentence that is either true or false. 
 \begin{tcolorbox}
@@ -358,7 +358,7 @@ And now let's say a little more about two's complement. That is, two's complimen
 \subsection{Lec 07. notes}
 
 We consider how to negate the $\exists!$ expression. Realize that:
-$$\exists!xP(x) \equiv \exists x(P(x)\land P(y) \rightarrow (x+y))$$
+$$\exists!xP(x) \equiv \exists x(P(x)\land P(y) \rightarrow (x=y))$$
 And hence the negation(using our negation laws gives):
 $$\neg\exists ! xP(x) \equiv P(x) \rightarrow \exists y \not = xP(y))$$
 \\
@@ -374,9 +374,9 @@ And two demonstrate the importance of nesting order on quantifiers, consider thi
 And notice here how $\exists x \forall y S(x,y) \rightarrow \forall y \exists x S(x,y)$ This makes sense as whenever an x exists for each y, we have to have that for all y, there is an x. 
 \\
 \clearpage
-And now we come to rules of inference for qunatifiers. 
+And now we come to rules of inference for quantifiers. 
 
-\begin{definition}
+\begin{definition}(Inference laws for quantified statements)
 \\
 \textbf{Universal instantiation} 
 \begin{equation*}
@@ -409,9 +409,19 @@ $$(2) \equiv \forall x(U(x) \rightarrow L(x))$$
 Now what may we infer from these?
 \\
 Well we know  $\exists x(H(x) \land U(x))$ hence we by instantiation we have $H(c) \land U(c)$ then $U(c),H(c)$ and since $ \forall x(U(x) \rightarrow L(x))$ to give $U(c) \rightarrow L(c), L(c)$ and finally $$H(c)\land L(c)$$
+\\
+And although it is not too useful to memorize their names, we include here a table of common rules of inference: 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.9]{epflSemesterOne/advancedComputation/figures/inference.JPG}
+    \caption{Rules of inference}
+\end{figure}
 
 \subsection{Lec 08. notes}
-A \textbf{proof} is a vald argument establishing the truth of a statement. 
+\subsubsection{Proof methods}
+A \textbf{proof} is a valid argument establishing the truth of a statement. 
 \\
 We list some common proof methods and elaborate:
 \\
@@ -422,23 +432,98 @@ We list some common proof methods and elaborate:
 \textbf{Proof by contradiction:} Firstly, proof by contradiction is often confused with proof by contraposition. We use proof by contradiction to show that a statement $p$ is true. To do this, if we can show that $\neg p \rightarrow q$ is true where $q$ is always false, we have that $\neg p$ is false hence $p$ true. A common example is showing that $\sqrt{2}$ is irrational. We take the negation of $p$ that $\sqrt{2}$ is rational and derive the contradiction that whenever we try to write $\sqrt{2} = \frac{z}{k}$ with $\gcd{z}{k} = 1$ that $\gcd{z}{k} = 1 \land \gcd{z}{k} \not = 1$ Thus the falsity of $p$ implies a contradiction(false value) showing that $p$ itself must be true. 
 \\
 Similarly suppose we have statement $p\equiv a \rightarrow b$. We know that $\neg p \rightarrow a \land \neg b$ and get that $a\land \neg b$ is always false showing that $p$ must be true. 
+\subsubsection{Graphs and planarity}
+\textbf{A planar} graph is one that can be drawn without overlapping edges. Now a planar graph does not imply that for all possible drawing, overlapping edges wont exist. It simply means that a drawing could be made without overlapping edges. Now the two most important facts of graphs are:
+
+ 
+ \begin{tcolorbox}[drop shadow, title=($K_{3,3}$ and $K_{5}$ are not planar),lower separated=true]
+    Now notice that each connection we make partitions the plane into an inner and outer side following the \textbf{Jordan theorem}. We find out that when it comes to drawing the last vertex for $K_{3,3}$, the edge is surrounded by 4 curves making it impossible to not cross a curve. 
+    \tcblower
+    \centering
+        \includegraphics[scale = 1.1,valign=t]{epflSemesterOne/advancedComputation/figures/k3.png}
+\end{tcolorbox}
+\\
+Now, \textbf{Kuratowski's theorem} states that a graph is non-planar iff it contains in one way $K_{3,3}$ or $K_{5}$
+\clearpage
+\subsubsection{Different surfaces}
+We now consider different surfaces, those of the \textbf{Torus, Mobius strip, Klein bottle} shown respectively in the figure below. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/advancedComputation/figures/mobius.JPG}
+    \caption{Rectangular abstraction}
+\end{figure}
+
+These surfaces are interesting because the laws of planarity no longer hold. For instance, on a mobius strip, $K_{3,3}$ is indeed planar as below. 
+
+ \begin{tcolorbox}[drop shadow, title=($K_{3,3}$ has become planar),lower separated=true]
+    \centering
+        \includegraphics[scale = 0.9,valign=t]{epflSemesterOne/advancedComputation/figures/mobiusk3.JPG}
+\end{tcolorbox}
+
+\subsection{Lec 09. notes}
+\subsubsection{Sequences}
+We define a \textbf{sequence} as a mapping $f: \mathbb{N} \to \mathbb{R}$. Some most essential sequences are:
+
+\begin{align*}
+    \textbf{constant sequence} \ \exists c \forall i \ a_{i} = c\\
+    \textbf{arithmetic sequence} \ \exists c \forall i \ a_{i+1} - a_{i}  = c\\
+    \textbf{geometric sequence} \ \exists c \forall i \ \frac{a_{i+1}}{a_{i}}= c
+\end{align*}
+\\
+More generally, the constant and arithmetic sequence are a member of the family of consecutive polynomial sequences. That is, since a polynomial is defines as:
+
+$$\sum_{i=0}^{j} a_{i}X^{i}$$ we may have sequences of higher degree. 
+\subsubsection{Summations}
+Consider the summation of the first n terms of a constant sequence $a_{i} = c$. We would have $\sum_{i=1}^{n}a_{i}$ which is the same as $\sum_{i=1}^{n}c$ and taking $c=1$ we get n times 1 added which is $\sum_{i=1}^{n}c = 1$
+\\
+Let's now consider the summation of an arithmetic sequence by using an $nxn$ square as below: 
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/advancedComputation/figures/square.JPG}
+    \caption{Summations, yey!}
+\end{figure}
+
+We agree that at each step there are $2i-1$ colored crosses which add up to $n^2$ many crosses. So we express it as $\sum_{i=1}^{n}(2i-1) = n^2$ and try to get a useful formula out of it. 
+\\
+Well we have that $\sum_{i=1}^{n}(2i-1) = \sum_{i=1}^{n}(2i) - \sum_{i=1}^{n}(1)$ Which further gives $2\sum_{i=1}^{n}(i) - \sum_{i=1}^{n}(1) = n^2$ hence we obtain $$\sum_{i=1}^{n}(i) = \frac{n^2 + n}{2}$$
 
 
+We now consider more interesting summations involving \textbf{telescoping sequences}. A telescoping sequence is a sequence where during summation of the terms (parts of) consecutive terms cancel each other, so that only few (parts of) terms remain to be added.
+To illustrate this, consider the sequence $\{b_i\}$ for $i>0$ with $$b_i=i-(i-1),$$
+and let $\{a_i\}$ be a constant sequence with $a_i=1$.
+Obviously, it follows that $b_i=1$ so that $b_i=a_i$ and thus $\sum_{i=1}^nb_i=\sum_{i=1}^na_i$. The latter sum was already calculated, which was a trivial exercise but in principle still required adding together $n$ terms all equal to~1. Using that $\sum_{i=1}^nb_i=\sum_{i=1}^na_i$ the same sum $\sum_{i=1}^na_i$ can be computed by computing $\sum_{i=1}^nb_i$ instead: due to the telescoping effect, this computation does not require any actual calculations at all, but just involves careful administration:
+\begin{eqnarray*}
+\sum_{i=1}^nb_i&=&b_n\,+\,b_{n-1}\,+\,b_{n-2}\,+\,\ldots\,+\,b_2\,+\,b_1\\
+&=&\underbrace{n-(n-1)}_{b_n}\,+\,\underbrace{n-1-(n-2)}_{b_{n-1}}\,+\,\underbrace{n-2-(n-3)}_{b_{n-2}}\,+\,\ldots\,+\,\underbrace{2-(2-1)}_{b_{2}}\,+\,\underbrace{1-(1-1)}_{b_{1}}\\
+&=&n\underbrace{-(n-1)+n-1}_{=0}\underbrace{-(n-2)+n-2}_{=0}\underbrace{-(n-3)+\ldots}_{=0}\ldots\underbrace{\ldots+2}_{=0}\underbrace{-1+1}_{=0}\,-\,0\\
+&=&n.
+\end{eqnarray*}
+\clearpage
+Yet a much more formal way of showing this as follows:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{eqnarray*}
+\sum_{i=1}^nb_i&=&\sum_{i=1}^n(i-(i-1))\\
+&=&\Big(\sum_{i=1}^ni\Big)-\Big(\sum_{i=1}^n(i-1)\Big)\,\,\,\,\text{     (in 2nd sum replace $i-1$ by $j$)} \\
+&=&\Big(\sum_{i=1}^{n}i\Big)-\Big(\sum_{j=0}^{n-1}j\Big)\,\,\,\,\text{     (replace $j$ by $i$)} \\
+&=&\Big(\sum_{i=1}^{n}i\Big)-\Big(\sum_{i=0}^{n-1}i\Big)\,\,\,\,\text{     (identify the part that occurs in both sums)} \\
+&=&\Big(n+\sum_{i=1}^{n-1}i\Big)-\Big(0+\sum_{i=1}^{n-1}i\Big)\\
+&=&n-0+\Big(\sum_{i=1}^{n-1}i\Big)-\Big(\sum_{i=1}^{n-1}i\Big)\\
+&=&n.
+\end{eqnarray*}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
