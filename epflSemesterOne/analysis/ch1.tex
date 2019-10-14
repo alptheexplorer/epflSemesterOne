@@ -524,9 +524,110 @@ Consider $x_{n} = \frac{2^n}{x!}$ Now clearly $0\leq\frac{2^n}{x!}$ and observin
 If $\lim_{n\to\infty}{x_{n}}=0$ and $y_{n}$ is bounded, then $\lim_{n\to\infty}{x_{n}\cdot y_{n}}=0$
 \end{theorem}
 
+\begin{theorem}
+\label{monotone}
+If a sequence is bounded and increasing(monotone) it converges to the supremum (resp. infimum). 
+\end{theorem}
+
 \begin{proof}
 Now because $y_{n}$ is bounded, we have that $\exists M$ s.t. $M\geq y_{n} \forall n$. Hence we obtain that $x_{n}y_{n} \leq Mx_{n}$ and clearly since $Mx_{n}$ converges to $0$ we have squeezed $x_{n}y_{n}$ and have that it also converges to 0. 
 \end{proof}
+
+
+We consider the famous sequence of \textbf{Fibonacci quotients}
+\\
+Now the fibonacci sequence is defined as $x_{0}=x_{1} = 1$, $x_{n+1} = x_{n} + x_{n-1}$ and we define the sequence of fibonacci quotients as $y_{n} = \frac{x_{n+1}}{x_{n}}$ Our first theorem is that fibonacci quotient sequence is bounded between 1 and 2. Let's now fnd it's limit. Notice firstly that $y_{n+1} = 1 + \frac{1}{y_{n}}$
+    $$y = \lim_{n \to \infty}{y_{n}} = \lim_{n \to \infty}{y_{n+1}} = 1 + \frac{1}{\lim_{n\to \infty}{y_{n}}} $$ Hence we get:
+    
+    $$ y = 1 + \frac{1}{y}$$ which gives $\frac{1+\sqrt{5}}{2}$ as the only valid solution. But we still have to show that our sequence converges. A smart way to do so is to show that $z_{n} := |y_{n} - \frac{1+\sqrt{5}}{2}|$ converges which by limit arithmetic would imply $\lim_{n \to \infty}{y_{n}} = \frac{1+\sqrt{5}}{2}$ Our goal is to squeeze $z_{n}$ in doing so. Notice that $z_{n+1} = |y_{n+1} - \frac{1+\sqrt{5}}{2}|= \underbrace{1 + \frac{1}{y_{n}} - (1 + \frac{2}{1+\sqrt{5}})}_{\text{ using definition }} $ This yields the inequality $z_{n + 1} = \frac{|y_{n} - \frac{1+\sqrt{5}}{2}|}{y_{n}\frac{1+\sqrt{5}}{2}}= \frac{2}{1+\sqrt{5}}\frac{|y_{n - \frac{1+\sqrt{5}}{2}}|}{y_{n}}$ to give us that $z_{n+1} \leq \frac{2}{1+\sqrt{5}}|y_{n - \frac{1+\sqrt{5}}{2}}|}$ because we know that $y_{n} \geq 1$. Now finally this simplifies to $z_{n+1} \leq \frac{2}{1+\sqrt{5}}z_{n}$ which applying the definition of $z_{n}$ gives $z_{n} \leq \frac{2}{1+\sqrt{5}}^{2}z_{n-1} $ to result in $z_{n} \leq \frac{2}{1+\sqrt{5}}^{n}z_{0}$ which converges to 0. Hence we have squeezed $z_{n}$
+    
+    \clearpage
+    
+    In general this is the scheme one should use for finding limits of recursive sequences:
+    
+     \begin{tcolorbox}[drop shadow, title = (Limit of recursive sequence),lower separated=true]
+     \begin{enumerate}
+         \item Assuming there is a limit, compute it using limit algebra.
+         \item Showing some upper and lower bound(using induction) exclude any extra answers.
+         \item Finally show that the sequence converges by showing that $\lim_{n\to\infty}{x_{n}-x}=0$
+     \end{enumerate}
+\end{tcolorbox}
+
+We now come to define \textbf{approaching infinities}.
+\begin{definition}
+The definition of approaching $\infty$ is as intuitive as saying for any real number I pick, the sequence has a term larger than it. Hence we define $\lim_{n\to \infty}{x_{n}} = \infty$ as $\forall A \in \mathbb{R}$ $\exists n_{A} \in \mathbb{N}$ such that $n\geq n_{A}$ and $x_{n} \geq A$. The similar definition applies for approaching $-\infty$
+\end{definition}
+
+\begin{example}
+Notice that for a geometric sequence $x_{n} = aq^{n}$ if $a>0$ and $q>1$ it approaches $\infty$ and if $a<0$ and $q>1$ it approaches $-\infty$ 
+\end{example}
+
+A set of useful theorems on approaching infinities is the following:
+
+\begin{theorem}(Theorems on approaching infinity)
+\\
+If $\lim_{n\to\infty}{x_{n}} = \infty$ and $y_{n}$ is bounded from below, then $\lim_{n\to\infty}{x_{n} + y_{n}} = \infty$
+\\
+If $x_{n}$ and $y_{n}$ both approach infinity, so does their product.
+\\
+If $y_{n}$ is bounded and $x_{n}$ approaches infinity, then $\lim_{n\to\infty}{\frac{y_{n}}{x_{n}}} = 0$
+\end{theorem}
+
+We note that when it is the case that $\lim_{n\to\infty}{x_{n}}=\infty$ and  $\lim_{n\to\infty}{x_{n}}=-\infty$ we may have different cases such as:
+
+$$ \lim_{n\to\infty}\underbrace{n}_{x_{n}} + \underbrace{(-n)}_{y_{n}} = 0 $$
+
+$$\lim_{n\to\infty}\underbrace{2n}_{x_{n}} + \underbrace{(-n)}_{y_{n}} = \infty$$
+
+$$\lim_{n\to\infty}\underbrace{2n + (-1)^{n}n}_{x_{n}} + \underbrace{(-2n)}_{y_{n}} = (-1)^{n}n \text{ which is unbounded hence does not approach anything}$$
+
+
+\begin{theorem}(Squeeze theorem for approaching infinities)
+For sequences $x_{n}$ and $y_{n}$ if $\exists n_{0} \in \mathbb{N}$ such that $\forall n \geq n_{0}$, $x_{n} \leq y_{n}$ we have:
+\\
+(1) If $\lim_{n\to\infty}{x_{n}} = \infty$ then $\lim_{n\to\infty}{y_{n}} = \infty$
+\\
+(2) If $\lim_{n\to\infty}{y_{n}} = -\infty$ then $\lim_{n\to\infty}{x_{n}} = -\infty$
+\end{theorem}
+
+\begin{theorem}(D'Alembert Theorem)
+\\
+$\forall x_{n} \not = 0$ and $\lim_{n\to \infty}{|\frac{x_{n+1}}{x_{n}}|} = \infty$ then we have that $x_{n}$ diverges. 
+\end{theorem}
+
+And now we provide an example of sandwich for infinities. 
+
+\begin{example}
+Define $x_{n}:= \frac{x!}{2^{n}}$ We have that $\frac{n}{2} \cdot \frac{n-1}{2} \ldots \cdot \frac{3}{2} \ldots \geq \frac{n}{2} \cdot \frac{3}{2}^{q-1}$ for some $n$. And because the latter is a geometric sequence which noticeably approaches infinity we have that $x_{n}$ approaches infinity. 
+\end{example}
+
+\begin{proof}(We present a proof to theorem \ref{monotone})
+\\
+Now set $S:=sup\{x_{n}|n\in\mathbb{N}\}$ and let $0<\epsilon\in\mathbb{R}$ By definition $S$ is the smallest bound hence $S-\epsilon$ is not the smallest bound. By def. again, $\exists n_{\epsilon}$ such that $S-\epsilon<x_{n_{\epsilon}}$ and we now get (for $n\geq n_{\epsilon}$ 
+$$S - \epsilon < x_{n_{\epsilon}} < x_{n} < S < S+\epsilon$$ and this is exactly the definition of convergence hence $S$ is the limit.
+\end{proof}
+\clearpage
+
+     \begin{tcolorbox}[drop shadow, title = (Exploration of e),lower separated=true]
+   We define $x_{n} = (1 + \frac{1}{n})^n$ We first ask is $x_{n}$ increasing. Consider the claim $(1+\frac{1}{n})^{n} < (1+\frac{1}{n+1})^{n+1}$
+   Now let's consider both the expansions of $(1 + \frac{1}{n})^n$ and of $(1 + \frac{1}{n+1})^{n+1}$
+   
+   $$ (1 + \frac{1}{n})^n = \sum_{i=0}^{n} \binom{n}{i} (\frac{1}{n^n}) = \sum_{i=0}^{n} \frac{1}{i!} \frac{n\cdot (n-1) \ldots (n-i+1)}{n^i} = \sum_{i=0}^{n} \frac{1}{i!} (1 - \frac{1}{n}) \ldots (1 - \frac{i-1}{n})    $$
+   
+   Similarly we have:
+   $$ (1 + \frac{1}{n + 1})^{n+1} = \sum_{i=0}^{n} \frac{1}{i!} (1-\frac{1}{n+1}) \ldots  (1 - \frac{i-1}{n}) $$
+   
+   and because generally $\frac{
+   q}{j} > \frac{q}{j+1}$ we have that terms on the RHS of the first expression are larger hence $(1+\frac{1}{n})^{n} < (1+\frac{1}{n+1})^{n+1}$ And we also have that our sequence is less than 3(which we do not show).
+   
+   Thus we define $$\lim_{x \to \infty}{(1+\frac{1}{n})^{n}} = e$$
+\end{tcolorbox}
+
+And now we present an example of a bounded sequence that is decreasing which converges to its infimum. Consider $x_{n+1} = \frac{1}{2}(x_{n} + \frac{1}{x_{2}})s$ and $x_{0}= 2$.
+\\
+We claim 1 is a lower bound which is true by induction(easy to show). Similarly, the sequence is decreasing as $x_{n} - x_{n+1} = \frac{1}{2}(x_{n}-\frac{1}{x_{2}} \geq 0$ since $x_{n} \geq 1$ And applying the recursive formula as usual we find that the limit is either -1 or 1 and ruling out -1 we get 1.  
+
+
 
 
 
