@@ -4,6 +4,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{float}
 \usepackage[
 top    = 2.50cm,
 bottom = 2.50cm,
@@ -452,6 +453,8 @@ Now when $T(x)$ is injective, it means that $T(x) = 0$ can have only a unique so
 
 \section{Matrix algebra}
 
+\subsection{Basics}
+
 \begin{property}
 Properties of the matrix transpose:
 \begin{align*}
@@ -510,6 +513,115 @@ The way we find inverses is best done by Gaussian elimination. We are simply loo
 \begin{thm}
 Because inverses are only defined on bijective mappings, whenever a square matrix is invertible, we have that $Ax=b$ has a unique solution $x = A^{-1}b$
 \end{thm}
+
+\subsection{Every matrix is the product of elementary matrices with the identity}
+
+Consider the matrix $E_{1}=$\begin{bmatrix}
+    1 && 0 && 0\\
+    0 && 1 && 0\\
+    -4 && 0 && 1
+\end{bmatrix} and $A=$ $E_{1}=$\begin{bmatrix}
+    a && b && c\\
+    d && e && f\\
+    g && h && i
+\end{bmatrix} Then notice that $E_{1}A=$ $E_{1}=$ \begin{bmatrix}
+    a && b && c\\
+    d && e && f\\
+    g -4a && h -4b && i -4b
+\end{bmatrix}
+
+Which goes on to show that every row operation can be represented as the product of elementary matrices. 
+
+\subsection{Characterizing inverse matrices}
+
+
+ \begin{tcolorbox}[drop shadow, title=(Theorem on inverse matrices),lower separated=true]
+    \centering
+        \includegraphics[scale = 0.9,valign=t]{epflSemesterOne/linearAlgebra/figures/invertible.JPG}
+\end{tcolorbox}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/linearAlgebra/figures/proof.JPG}
+
+\end{figure}
+
+\section{Determinants}
+\subsection{Basics}
+
+First of all, determinant is only defined on an $nxn$ matrix and is denoted $det(A)$ or simply $|A|$
+\\
+The most useful formula for a determinant is 
+
+$$ det(A) = \sum_{j=1}^{n} a_{1j}C_{1j}$$ or equivalently 
+$$ det(A) = \sum_{i=1}^{n} a_{i1}C_{i1}$$
+where $C_{ij}$ which is known as a \textit{cofactor} of matrix A is defined as:
+
+$$ C_{ij} = (-1)^{i+j}det(A_{ij})$$ wherein $A_{ij}$ denotes a submatrix of A obtained by cancelling out the ith row and jth column of A. 
+\\
+Now the above formula is one way to calculate the determinant. An alternative method comes from the realization that whenever a matrix is triangular, its determinant is the product of the terms along its diagonal. Hence given a matrix $A$ we may row reduce it to its echelon form and simply find the product of all pivots. But noticing how 
+
+$$ A = E_{1}\ldots E_{n}I$$ we get that
+
+$$det(A) = det(E_{1})\ldots det(E_{n})$$
+
+which means that because after row reduction we obtain $[I | A^{-1}]$, $det(A) = det(E_{1})\ldots det(E_{n}) \cdot det(I)$
+
+This brings us to the following properties:
+
+\begin{enumerate}
+    \item If a multiple of one row is added to another to obtain matrix $B$, then $det(A) = det(B)$
+    \item If a row is scaled by $k$ to obtain matrix $B$, then $det(B) = k \cdot det(A)$
+    \item If two rows are interchanged, then $det(B) = -det(A)$
+\end{enumerate}
+
+\clearpage
+
+And now a very important theorem is:
+
+\begin{thm}
+A matrix is $A$ invertible iff $det(A) \not = 0$ 
+\end{thm}
+
+\begin{proof}
+When a matrix is invertible, we have that the solution to $Ax = 0$ is unique implying linear independence. And linear independence implies that $det(A) \not = 0$. 
+\end{proof}
+
+\begin{thm}
+If $A$ is $nxn$, then $det(A^{T}) = det(A)$
+\end{thm}
+
+\begin{proof}
+This is obvious. We have that the cofactors along the columns of $A^{T}$ are equal to cofactors of $A$ along rows and by definition of the transpose we have that $a_{1j} = a_{j1}$ which implies the coefficients are also equal. This also suggests why the earlier formula for $det(A)$ comes in two forms. 
+\end{proof}
+
+And now yet another theorem:
+
+\begin{thm}
+$det(AB) = det(A)det(B)$
+\end{thm}
+
+
+And now we come to Cramer's rule. It provides us with an alternative method for solving a system of equations using determinants. It states the following:
+
+\begin{thm}(\textbf{Cramer's Rule})
+\\
+Where $A$ is an $n x n$ matrix, the solution to $Ax=b$ is of form 
+$$x_{i} = \frac{|A_{i}(b)|}{|A|} \ i=1,2,3\ldots$$ 
+where $A_{i}(b)$ is obtained by replacing the ith column of A with the vector b.
+\end{thm}
+
+\begin{proof}
+Again quite simple. Notice that 
+
+$$A\cdot I_{i}(b) = A[e_{1} \ldots b \dots e_{n}] = [a_{1} \ldots \underbrace{b}_{since Ax = b} \ldots a_{n}] = A_{i}(b)$$
+Taking determinants we get $$det(A)\underbrace{det(I_{i}(b)}_{=x_{i}} = det(A_{i}(b)$$ to give $$ x_{i} = \frac{det(A_{i}(b)}{det(A)}$$
+\end{proof}
+
+We now introduce the \textit{adjoint of }
+
 
 
 

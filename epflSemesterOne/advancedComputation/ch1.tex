@@ -1,11 +1,13 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{amsmath}
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{proof}
 \usepackage{float}
+
 \theoremstyle{definition}
 
 
@@ -489,7 +491,7 @@ We agree that at each step there are $2i-1$ colored crosses which add up to $n^2
 Well we have that $\sum_{i=1}^{n}(2i-1) = \sum_{i=1}^{n}(2i) - \sum_{i=1}^{n}(1)$ Which further gives $2\sum_{i=1}^{n}(i) - \sum_{i=1}^{n}(1) = n^2$ hence we obtain $$\sum_{i=1}^{n}(i) = \frac{n^2 + n}{2}$$
 
 
-We now consider more interesting summations involving \textbf{telescoping sequences}. A telescoping sequence is a sequence where during summation of the terms (parts of) consecutive terms cancel each other, so that only few (parts of) terms remain to be added.
+\textcolor{gray}{We now consider more interesting summations involving} \textbf{telescoping sequences}. A telescoping sequence is a sequence where during summation of the terms (parts of) consecutive terms cancel each other, so that only few (parts of) terms remain to be added.
 To illustrate this, consider the sequence $\{b_i\}$ for $i>0$ with $$b_i=i-(i-1),$$
 and let $\{a_i\}$ be a constant sequence with $a_i=1$.
 Obviously, it follows that $b_i=1$ so that $b_i=a_i$ and thus $\sum_{i=1}^nb_i=\sum_{i=1}^na_i$. The latter sum was already calculated, which was a trivial exercise but in principle still required adding together $n$ terms all equal to~1. Using that $\sum_{i=1}^nb_i=\sum_{i=1}^na_i$ the same sum $\sum_{i=1}^na_i$ can be computed by computing $\sum_{i=1}^nb_i$ instead: due to the telescoping effect, this computation does not require any actual calculations at all, but just involves careful administration:
@@ -512,6 +514,58 @@ Yet a much more formal way of showing this as follows:
 &=&n.
 \end{eqnarray*}
 
+We now consider a different approach to geometric sequences. We are interested in a closed form expression for $\sum_{i=0}^ng_i$, where for relevant values of $r$ it may even make sense to talk about the value of $\sum_{i=0}^\infty g_i$.
+Because $$\sum_{i=0}^ng_i=\sum_{i=0}^ng_0r^i=g_0\sum_{i=0}^nr^i$$
+the value~$g_0$ is just an uninteresting multiplicative factor, and we omit it (i.e., from now on we assume that $g_0=1$; note that the entire sum equals zero if $g_0=0$).
+Obviously, the problem is not interesting if $r=1$: then we get (with $g_0=1$) that
+$$\sum_{i=0}^ng_i=\sum_{i=0}^nr^i=\sum_{i=0}^n1^i=\sum_{i=0}^n1=n+1.$$
+Also $r=-1$ is not inspiring: we get 0 if $n$ is odd and 1 if $n$ is even; but the final arguments below work for $r=-1$ as well, so $r=-1$ is not excluded below.
+
+Assuming $r\ne1$, we want to find a closed form expression for $\sum_{i=0}^nr^i$, i.e., for $$r^0+r^1+\ldots+r^{n-2}+r^{n-1}+r^n.$$
+It was noted that we are already familiar with a similar sum, namely $$r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0$$
+which is just the same, but in the reverse order.
+How come we are familiar with something like $r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0$?
+Just look at the decimal number $111\ldots11$ that consists of $n+1$ ones:
+that is precisely the same as our expression $r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0$ if we assume that $r=10$ (the \emph{basis} or \emph{radix} of our decimal number system) because our decimal number ${\color{red}{1}}{\color{green}{1}}{\color{blue}{1}}\ldots{\color{pink}{1}}{\color{magenta}{1}}$ is just a convenient shorthand notation for
+$${\color{red}{1}}\times10^n+{\color{green}{1}}\times10^{n-1}+{\color{blue}{1}}\times10^{n-2}+\ldots+{\color{pink}{1}}\times10^1+{\color{magenta}{1}}\times10^0:$$
+that is how the value of a number in decimal notation is defined, where the present case is particularly simple because all the digits are equal to one.
+
+Taking for instance $n=4$, we find the number $11111$, and we know that if we multiply it by $9$ (which was carefully chosen as $10-1$, i.e., as $r-1$) we get, without any effort, $99999$, so that if we add one we get 100000, for which we have the nice closed form expression $10^5$ (i.e., $r^{n+1}$). We thus found that $$(11111\times 9)+1=10^5$$
+and more in general that
+$$(\underbrace{111\ldots11}_{n+1 \text{ ones}}\times 9)+1=10^{n+1},$$
+or even more in general that
+$$(\underbrace{111\ldots11}_{n+1 \text{ ones}}\times (r-1))+1=r^{n+1},$$
+where the final $111\ldots11$ should be liberally interpreted as a shorthand notation for $r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0$
+and where we use that $10$ was just a placeholder for $r$ and thus that $9$ was a placeholder for $r-1$. This final expression leads us to believe that
+$$\underline{(r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0)\times(r-1)}+1=r^{n+1}$$
+and thus that
+$$r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0=\frac{r^{n+1}-1}{r-1}$$
+(where you should remember that indeed $r\ne 1$). But this is precisely the closed formula for $\sum_{i=0}^nr^i$ that we were trying to find, so we are done -- except we have not proved anything yet other than by intimidation.
+
+To actually prove this result that
+$$\sum_{i=0}^nr^i=\frac{r^{n+1}-1}{r-1}$$
+if $r\ne 1$, have a look at the underlined part
+$$(r^n+r^{n-1}+r^{n-2}+\ldots+r^1+r^0)\times(r-1)$$
+of the equation above: 
+apparently we need to prove that this underlined part is equal to $r^{n+1}-1$.
+Pulling the factor $r-1$ inside the parentheses we get
+$$(r-1)r^n+(r-1)r^{n-1}+(r-1)r^{n-2}+\ldots+(r-1)r^1+(r-1)r^0$$
+and thus
+$$r^{n+1}-r^n+r^n-r^{n-1}+r^{n-1}-r^{n-2}+\ldots+r^2-r^1+r^1-r^0.$$
+\textcolor{gray}{This is yet another example of our earlier telescoping sum: all the intermediate terms cancel each other.}
+
+
+In any case, the conclusion is that if $r\ne1$ then
+$$\sum_{i=0}^nr^i=\frac{r^{n+1}-1}{r-1}$$
+for any integer $n\ge0$.
+It follows that if $|r|<1$ we have that
+$$\sum_{i=0}^\infty r^i=\frac{1}{1-r}$$
+because for $n\to\infty$ the term $r^{n+1}\to0$.
+\\
+
+We finally conclude by representing a useful identity as follows:
+
+$$ \sum_{i=1}^{\infty}\sum_{j=1}^{i} \cdots =  \sum_{j=1}^{\infty}\sum_{i=j}^{\infty} \cdots$$
 \end{document}
 
 
