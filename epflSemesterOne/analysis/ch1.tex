@@ -5,6 +5,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{xcolor}
 \usepackage{float}
 \usepackage[
 top    = 2.50cm,
@@ -627,6 +628,97 @@ And now we present an example of a bounded sequence that is decreasing which con
 \\
 We claim 1 is a lower bound which is true by induction(easy to show). Similarly, the sequence is decreasing as $x_{n} - x_{n+1} = \frac{1}{2}(x_{n}-\frac{1}{x_{2}} \geq 0$ since $x_{n} \geq 1$ And applying the recursive formula as usual we find that the limit is either -1 or 1 and ruling out -1 we get 1.  
 
+\subsection{More definitions and theorems}
+
+We come to an interesting definition. That of \textit{LimSup & LimInf}.
+
+\begin{definition}(LimSup and LimInf)
+Let $x_{n}$ be a bounded sequence. Then:
+$$y_{n} := \sup{\{x_{k}|n\leq k \in \mathbb{N}\}} \text{(resp. inf)}}$$
+\end{definition}
+
+Now the sequence $y_{n}$ is clearly decreasing as we are looking over a smaller set for each $n+1$. Similarly considering the respective inf definition, we have that it is increasing as each time we are removing elements from the largest set for $n=0$ meaning that our inf is at least as large as $y_{0}$ or bigger. Now since $y_{n}$ is valid sequence definition, it naturally has a limit as well defined as:
+
+$$y_{n} := \lim_{n\to\infty}{\sup{\{x_{k}|n \leq k \in \mathbb{N}\}} \text{(resp. inf)}}}$$
+
+Here's an example:
+
+\begin{example}
+Consider $x_{n} = (-1)^{n}$. Defining $y_{n} = \sup{\{x_{k}|n\leq k \in \mathbb{N}\}}$ we get that the limit of $y_{n}$ as n goes to infinity is 1. 
+\end{example}
+
+And now we define what it means to be a subsequence. 
+
+\begin{definition}
+Let $x_{n}$ be a sequence. Then $x_{n_{k}}$ is a subsequence of $x_{n}$ where each $k$ is mapped to some $n_{k}$ by some rule $f: \mathbb{N} \to \mathbb{N}$
+\end{definition}
+
+\begin{example}
+Suppose we define $x_{n} = \frac{1}{n}\sin{n}$ And define the subsequence $x_{2\pi k}$ we notice that this subsequence is constant with all values mapping to $0$
+\end{example}
+
+And yet a meetier example is:
+
+\begin{example}
+Define $x_{n} = (1 + \frac{2}{n})^{n}$ and a subsequence $x_{2k}$. We notice that 
+$$ \lim_{k \to \infty}{(1 + \frac{1}{k})^{2k}} = \lim_{k \to \infty}{(1 + \frac{1}{k})^{k})^{2}} = e^{2}$$
+\end{example}
+
+\clearpage
+
+\begin{theorem}
+If a sequence $x_{n}$ converges to $a$, then so do all subsequences of $x_{n}$
+\end{theorem}
+
+\begin{proof}(Simply using invoking definition of convergence)
+Now accepting the if true, we have that:
+
+$$ \forall \epsilon > 0, \ \exists n_{\epsilon} \ \text{s.t.} n\geq n_{\epsilon} \rightarrow |x_{n} - a| \leq \epsilon$$
+
+\textcolor{red}{We now fix $n_{\epsilon} = n_{k}$ hence proof. (this proof is to be revisited, it may be false.}
+\end{proof}
+
+\begin{example}
+Consider a sequence that jumps between $e$ and $-e$ as $n \to \infty$ defined by $x_{n} = (-1)^{n}(1 + \frac{1}{n})^{n}$ For all subsequences with an even domain, the limit is $e$ and for subssequences with an odd domain, limit is $-e$
+\end{example}
+
+\begin{theorem}(Bolzano Weierstrass)
+Every bounded sequence contains a convergent subsequence. 
+\end{theorem}
+
+\begin{proof}
+Let's define $y_{n} = \sup{x_{k}:k\geq n}$. Now given that $y_{n}$ is bounded from below(because $x_{n}$ is bounded) and that it is decreasing, we have that $y_{n}$ converges to some $y$ meaning:
+$$ \forall \epsilon > 0, \forall N, \exists n_{\epsilon} \geq N \ , \underbrace{|y_{n} - y|\leq \frac{1}{2}\epsilon}_{\text{definition of convergence}}$$
+
+And by definition of sup and how we defined $y_{n}$ we have that 
+$$ \forall \epsilon > 0, \exists n_{1} \geq n \rightarrow |x_{n_{1}} - y_{n}| \leq \frac{1}{2}\epsilon$$
+
+Considering that we want an expression like $|x_{n_{1}} - y|\leq\epsilon$ And we get this by:
+
+$$ |x_{n_{1}} - y| = |x_{n_{1}} - y_{n} + y_{n} - y| \leq \underbrace{|x_{n_{1}} - y_{n}| + |y_{n} - y_{n}|}_{\text{using triangle ineq.}} \leq \frac{1}{2}\epsilon + \frac{1}{2}\epsilon = \epsilon $$
+Now the last part is enough for the proof because we are assured that for any subsequence choice we make, it holds that there is an $N$ such that $n_{k} \geq N$
+\end{proof}
+
+
+\begin{definition} (Cauchy convergence)
+A sequence is Cauchy convergent if $\forall \epsilon > 0$, $\exists n_{\epsilon}$ such that $\forall n,m \geq n_{\epsilon}$ we have that $|x_{n} - x_{m}| \leq \epsilon$
+\end{definition}
+
+A very important theorem concerning Cauchy convergence is:
+
+\begin{theorem}
+$x_{n}$ is convergent iff. it is Cauchy convergent. 
+\end{theorem}
+
+\begin{proof} (1)Suppose $x_{n}$ is convergent. Now set $x := \lim_{n \to \infty}{x_{n}}$ By definition we have that $\forall \epsilon$ $\exists n_{\frac{\epsilon}{2}}$ such that $\forall n,m \geq n_{\frac{\epsilon}{2}}$ 
+\begin{align*}
+    |x_{n} - x| \leq \frac{1}{2}\epsilon\\
+    |x_{m} - x| \leq \frac{1}{2}\epsilon
+\end{align*}
+And noticing that $|x_{n} - x_{m}| = |x_{n} - x + x - x_{m}| \leq |x_{n} - x| + |x - x_{m}| \leq \epsilon$
+\\
+(2) We now prove the opposite direction. 
+\end{proof}
 
 
 
