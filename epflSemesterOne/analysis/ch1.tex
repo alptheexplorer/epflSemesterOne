@@ -591,7 +591,7 @@ For sequences $x_{n}$ and $y_{n}$ if $\exists n_{0} \in \mathbb{N}$ such that $\
 (2) If $\lim_{n\to\infty}{y_{n}} = -\infty$ then $\lim_{n\to\infty}{x_{n}} = -\infty$
 \end{theorem}
 
-\begin{theorem}(D'Alembert Theorem)
+\begin{theorem}(Quotient criterion)
 \\
 $\forall x_{n} \not = 0$ and $\lim_{n\to \infty}{|\frac{x_{n+1}}{x_{n}}|} = \infty$ then we have that $x_{n}$ diverges. 
 \end{theorem}
@@ -718,9 +718,48 @@ $x_{n}$ is convergent iff. it is Cauchy convergent.
 And noticing that $|x_{n} - x_{m}| = |x_{n} - x + x - x_{m}| \leq |x_{n} - x| + |x - x_{m}| \leq \epsilon$
 \\
 (2) We now prove the opposite direction. 
+
+% comme back to this section to complete!!!! 
+
 \end{proof}
 
 
+
+\clearpage
+
+\section{Series}
+
+\begin{definition}
+A series $S_{n}$ is defined in terms of the summation of some sequence $x_{n}$.
+
+$$S_{n} = \sum_{k=0}^{n} x_{n}$$
+\end{definition}
+
+\begin{theorem}(Bernoulli Inequality(Known as the negative case of it))
+\\
+Whenever $-1<x<0$ we have that $(1+x)^{n} \geq 1 + nx$
+\end{theorem}
+
+
+     \begin{tcolorbox}[drop shadow, title = (Yet another way to obtain e),lower separated=true]
+     Consider the sequence $S_{n} = \sum_{k=0}^{\infty} \frac{1}{k!}$
+     Now clearly $S_{n}$ is increasing and is bounded. It is bounded because:
+     
+     $$\sum_{k=0}^{\infty} \frac{1}{k!} \leq 1 + \sum_{k=1}^{n} 2^{k-1} \leq 1 + \sum_{k=1}^{\infty} 2^{k-1} = 3$$
+     
+     Thus we know that a limit must exists. Now let's find that limit. Observe that:
+     
+     $$\sum_{k=0}^{\infty} \frac{1}{k!} \geq \sum_{k=0}^{\infty} \frac{1}{k!}\underbrace{(1 - \frac{1}{n}) \ldots (1 - \frac{k-1}{n})}_{\text{each term smaller than 1}} \geq 2 + \sum_{k=2}^{\infty} \frac{1}{k!}\underbrace{(1 - \frac{1}{n}) \ldots (1 - \frac{k-1}{n})}_{\text{first 2 terms are 1}}$$
+     
+     And further realizing that:
+     
+     $$$$
+     
+     
+     
+     
+     
+\end{tcolorbox}
 
 
 
