@@ -724,9 +724,6 @@ And noticing that $|x_{n} - x_{m}| = |x_{n} - x + x - x_{m}| \leq |x_{n} - x| + 
 \end{proof}
 
 
-
-\clearpage
-
 \section{Series}
 
 \begin{definition}
@@ -739,13 +736,20 @@ $$S_{n} = \sum_{k=0}^{n} x_{n}$$
 \\
 Whenever $-1<x<0$ we have that $(1+x)^{n} \geq 1 + nx$
 \end{theorem}
+\\
+
+\begin{definition}(Cauchy criterion for series)
+A series $S_{n}$ is convergent iff: 
+$$ \forall \epsilon >0, \exists n_{\epsilon} \ \forall n,m > n_{epsilon} \ \sum_{k = n=1}^{m} |x_{k}| \leq \epsilon$$
+
+\end{definition}
 
 
      \begin{tcolorbox}[drop shadow, title = (Yet another way to obtain e),lower separated=true]
      Consider the sequence $S_{n} = \sum_{k=0}^{\infty} \frac{1}{k!}$
      Now clearly $S_{n}$ is increasing and is bounded. It is bounded because:
      
-     $$\sum_{k=0}^{\infty} \frac{1}{k!} \leq 1 + \sum_{k=1}^{n} 2^{k-1} \leq 1 + \sum_{k=1}^{\infty} 2^{k-1} = 3$$
+     $$\sum_{k=0}^{\infty} \frac{1}{k!} \leq 1 + \sum_{k=1}^{n} \frac{1}{2^{k-1}} \leq 1 + \sum_{k=1}^{\infty} \frac{1}{2^{k-1}} = 3$$
      
      Thus we know that a limit must exists. Now let's find that limit. Observe that:
      
@@ -753,17 +757,47 @@ Whenever $-1<x<0$ we have that $(1+x)^{n} \geq 1 + nx$
      
      And further realizing that:
      
-     $$$$
+      $$2 + \sum_{k=2}^{\infty} \frac{1}{k!}(1 - \frac{1}{n}) \ldots (1 - \frac{k-1}{n})} \geq 2 + \sum_{k=2}^{\infty} \frac{1}{k!}(1 - \frac{k-1}{n}^{k-1})} \geq \sum_{k=0}^{n} \frac{1}{k!}\underbrace{(1 - \frac{k-1}{n}(k-1))}_{\text{\makebox[0pt]{Using negative Bernoulli}}} $$
+      
+      Now the very last term on the RHS is equal to: 
+      
+      $$ \sum_{k=0}^{n} \frac{1}{k!} - \frac{1}{n}\sum_{k=2}^{n} (\frac{(k-1)^2}{k!}$$
+      
+      Now we are in a very good position because we have that 
      
+     $$\sum_{k=0}^{\infty} \frac{1}{k!} \geq \sum_{k=0}^{\infty} \frac{1}{k!}(1 - \frac{1}{n}) \ldots (1 - \frac{k-1}{n}) \geq  \sum_{k=0}^{n} \frac{1}{k!} - \frac{1}{n}\sum_{k=2}^{n} (\frac{(k-1)^2}{k!}$$
      
+     Which means that if we can show that $\frac{1}{n}\sum_{k=2}^{n} (\frac{(k-1)^2}{k!})$ tends to 0 and given that $\sum_{k=0}^{\infty} \frac{1}{k!}(1 - \frac{1}{n}) \ldots (1 - \frac{k-1}{n}) \to e$ we will have squeezed $e$ between $\sum_{k=0}^{n} (\frac{1}{k!})$
      
+     Now notice that:
+     $$\frac{1}{n} \to 0 , \frac{1}{n}\sum_{k=2}^{n} (\frac{(k-1)^2}{k!} \leq \frac{1}{n}\sum_{k=2}^{n} \frac{1}{(k-2)!}} = \frac{1}{n}\sum_{k=0}^{n-2} \frac{1}{(k)!}}  \leq 3$$
      
-     
+     Thus we gloriously obtain that :
+     $$ \sum_{k=0}^{n} \frac{1}{k!} \geq e \geq \sum_{k=0}^{n} \frac{1}{k!}$$
+    
 \end{tcolorbox}
 
+\clearpage
 
+\begin{definition}
+A series is convergent if simply $S_{n}$ is convergent and it is absolute convergent if $S_{n} = \sum_{k=0}^{n} x_{k}$ is convergent.
+\end{definition}
 
+Now a very important theorem is the following:
 
+\begin{theorem}
+If $\sum_{k=0}^{n=\infty}x_{k}$ is convergent, then $\lim_{n\to\infty}x_{n} = 0$
+\end{theorem}
+
+And squeeze theorem for series is;
+
+\begin{theorem}
+assume $\exists n_{0}$ s.t. $0\leq x_{n} \leq y_{n} \ \forall n \geq n_{0}$ Then: 
+\begin{enumerate}
+    \item if $\sum_{k=0}^{\infty} y_{k}$ is convergent, so is $\sum_{k=0}^{\infty} x_{k}$
+    \item if $\sum_{k=0}^{\infty} x_{k}$ is divergent, so is $\sum_{k=0}^{\infty} y_{k}$
+\end{enumerate}
+\end{theorem}
 
 
 
