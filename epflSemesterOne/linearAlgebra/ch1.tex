@@ -20,7 +20,7 @@ right  = 2.75cm]{geometry}
 \newtheorem{cor}{Corollary}[subsection]
 \newtheorem{prop}{[Proposition]}
 \newtheorem{rem}{Remark}[subsection]
-\newtheorem{definition}{Definition}
+\newtheorem{definition}{Definition}[subsection]
 \numberwithin{equation}{subsection}
 
 \title{Linear Algebra 1}
@@ -617,14 +617,118 @@ where $A_{i}(b)$ is obtained by replacing the ith column of A with the vector b.
 Again quite simple. Notice that 
 
 $$A\cdot I_{i}(b) = A[e_{1} \ldots b \dots e_{n}] = [a_{1} \ldots \underbrace{b}_{since Ax = b} \ldots a_{n}] = A_{i}(b)$$
-Taking determinants we get $$det(A)\underbrace{det(I_{i}(b)}_{=x_{i}} = det(A_{i}(b)$$ to give $$ x_{i} = \frac{det(A_{i}(b)}{det(A)}$$
+Taking determinants we get $$det(A)\underbrace{det(I_{i}(b)}_{=x_{i}} = det(A_{i}(b)$$ to give $$ x_{i} = \frac{det(A_{i}(b))}{det(A)}$$
+\end{proof}
+\\
+And now an important theorem is the following:
+
+\begin{thm}
+The area of the parallelogram determined by $a_{1}$ and $a_{2}$ is the same as that determined by $a_{1}$ and $a_{2} + ca_{1}$
+\end{thm}
+
+And furthermore:
+
+\begin{thm}
+For a linear transformation $T: \mathbb{R^{n}} \to  \mathbb{R^{n}}$ we have that whenever S is the generic shape in this vector space than the new area after T is given by:
+
+$$ |T(s)| = |\det{A} \cdot |S|s$$
+\end{thm}
+
+\clearpage
+
+\section{More on vector spaces}
+\subsection{Basics}
+
+\begin{tcolorbox}
+\begin{definition}
+A \textbf{Vector space} is an algebraic structure satisfying:
+
+\begin{enumerate}
+    \item For some vector set $V$ we have that $V$ is an abelian group under addition.
+    \item Scalar multiplication between members of a scalar field and vector elements is defined and closure holds.
+    \item Scalar multiplication of a vector associates
+    \item $\forall v \in V$ we have that $1\cdot v = v$
+    \item Multiplication of a scalar with two vectors distributes and multiplication of a vector with two scalars distributes. 
+\end{enumerate}
+\end{definition}
+\end{tcolorbox}
+
+Now three important facts that follow from these axioms are:
+
+\begin{align}
+    \label{1}0v = 0 \ \forall v \in V\\
+    \label{2}c0 = 0 \ \forall c \in F\\
+    \label{3}-u = (-1)u \ \forall u \in V
+\end{align}
+
+Let's prove these solely using the axioms. 
+\begin{proof}
+\\
+
+\textbf{\ref{1}}
+$$ 0v = (a-a)v = \underbrace{av - av}_{\text{\makebox[0pt]{additive inverse} }} = 0 $$
+
+\textbf{\ref{2}}
+
+$$ c0 = c(0-0) = c0 - c0 = 0$$
+
+\textbf{\ref{3}}
+\begin{align*}
+    0u = (1-1)u\\
+    0 = u + (-1)u\\
+    -u = \underbrace{-u + u + (-1)u}_{\text{\makebox[0pt]{right additive inverse} }}
+\end{align*}
 \end{proof}
 
-We now introduce the \textit{adjoint of }
+
+\begin{definition}
+For a vector space $V$, $S$ is said to be a subspace if:
+
+\begin{enumerate}
+    \item $0_{v} \in S$
+    \item $S$ is closed under scalar multiplication and vector addition
+\end{enumerate}
+\end{definition}
+
+\begin{definition}(Null space)
+\\
+For some matrix $A$, the \textbf{Null space} is such that:
+$$Nul A = \{v\in V| Av = 0_{v}\} $$
+\end{definition}
+
+\begin{prop}
+$Nul A$ is a subspace of $V$
+Now clearly $0 \in V$ as $0$ is the trivial solution to $Ax = 0$.
+\\
+We now need that $\forall u,v \in Nul A$, $u+v \in Nul A$.
+$$A(u+v) = \underbrace{Au + Av}_{\text{\makebox[0pt]{matrices are linear maps}}} = 0 + 0 = 0$$
+\\
+We now also need $\forall u \in Nul A, \ cu \in A$
+
+$$ A(cu) = cA(u) = c0 = 0$$
+\end{prop}
 
 
+\begin{thm}
+The span of any single vector space elements is a subspace. 
+\end{thm}
+
+\begin{definition}(Column space
+The column space $Col A$ is the set of all possible linear combinations of the columns of a matrix A and is also a subspace.
+\end{definition}
 
 
+And now some examples of vector spaces:
+
+\begin{example}
+\begin{itemize}
+    \item $\mathbb{R}^{n}$ is the most common example equipped with $\mathbb{R}$ as scalars.
+    \item Set of polynomials of degree at most $n$ denoted $P_{n}$
+    \item set of all real valued functions. This one is a little more subtle. Our 'vectors' are functions $f(x)$ and for instance the 0 vector is the map $g(x) = 0$. We define addition as $f(x) + g(x) = (f+g)(x)$ and scalar multiplication as $cf(x) = f(cx)$
+\end{itemize}
+\end{example}
+
+Under light of vector spaces, a \textbf{linear transformation} is now much more clear as being a mapping that respects the two operations of vector spaces. 
 
 
 

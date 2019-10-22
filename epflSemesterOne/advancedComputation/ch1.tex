@@ -666,9 +666,44 @@ A function $f(x)$ is said to be $\Omega(g(x))$ or informally $f$ is $O(g)$ if $$
 \end{definition}
 
 \begin{definition}(Big $\Theta$)
-if $f$ is both $O(g)$ and $\Omega(g$, then f is $\Theta(g)$ meaning that f and g are of the same order
+if $f$ is both $O(g)$ and $\Omega(g)$, then f is $\Theta(g)$ meaning that f and g are of the same order
 \end{definition}
 
+\subsection{Lec 12. notes}
+
+\subsubsection{Basics}
+\textbf{Notion of Random access} We want our programs to have fast access to data. Thus an array is said to be \textbf{random access} if accessing or reading an element is independent of its index. Yet in reality this is far from true as there is only so much the \textbf{cache} can store. 
+\\
+When it comes to the cache, cache implements a compromise between spatial and temporal locality. That is, spatial locality refers to the likelihood that referencing a resource is high if something near it was referenced. Temporal locality refers to the notion that once a variable is called it will likely be called again. 
+\\
+An example is that Fortran caches 2-D arrays in column format. Hence to exploit spatial locality, when multiplying $A X B$ we would need to transpose $A$ and define matrix multiplication purely in terms of column to column inner products. 
+\clearpage
+\textbf{Binary search} When performing binary search on an ordered list, we let $m := \floor{\frac{n}{2}}$ for a list of $n$ items. Now whenever $l \not = l_{m}$ and our saught after element $l < l_{m}$ we reduce array size to range $l_{1}, .... , l_{m-1}$ and else to $l_{m+1}, .... , l_{n}$. Repeating the previous step, we obtain the in the worst case, we perform the floor operation until we reach the largest $k$ such that $\frac{n}{2^{k}} < 1$ to give us that $k$ which is how many steps we take is bounded by $\log_{2}n$ as $k < log_{2}n$
+\subsection{Sorting algorithms}
+
+
+\begin{tcolorbox}[drop shadow, title=(Overview of algorithms),lower separated=true]
+\textbf{Bucket sort}
+Simply arrange similar elements into buckets and the apply any sorting algorithm.
+\\
+\textbf{Bubble sort}
+\begin{verbatim}
+    for(i = 1 to n-1){ if(l_{i} > l_{i+1}){.swap(l_{i},l_{i+1}}}
+\end{verbatim}
+We have the worst case is $\sum_{i=1}^{n} (n-i)$ swaps hence $O(n^2)$
+\\
+\textbf{Selection sort}
+Locate largest element and swap with last element. Then iterate for array of size $n-1$. 
+\\
+\textbf{Insertion sort}
+\\
+\textbf{Quick sort}
+\\
+\textbf{Merge sort}
+\\
+\textbf{Heap sort}
+    
+\end{tcolorbox}
 
 \end{document}
 
