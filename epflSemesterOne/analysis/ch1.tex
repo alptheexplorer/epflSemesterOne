@@ -5,6 +5,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{empheq}
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage[
@@ -641,6 +642,11 @@ Now the sequence $y_{n}$ is clearly decreasing as we are looking over a smaller 
 
 $$y_{n} := \lim_{n\to\infty}{\sup{\{x_{k}|n \leq k \in \mathbb{N}\}} \text{(resp. inf)}}}$$
 
+
+\begin{remark}
+       The purpose in defining limsup and liminf is that when a limit on itself doesn't exist, by taking limsup, we limit the values of our sequence and if for instance our sequence consists of purely -1 and 1 limsup tells us that the largest occurring value is 1. In the case where our sequence approached $\infty$ so does limsup and whenever a limit exists, limsup is the limit. 
+\end{remark}
+
 Here's an example:
 
 \begin{example}
@@ -657,14 +663,13 @@ Let $x_{n}$ be a sequence. Then $x_{n_{k}}$ is a subsequence of $x_{n}$ where ea
 Suppose we define $x_{n} = \frac{1}{n}\sin{n}$ And define the subsequence $x_{2\pi k}$ we notice that this subsequence is constant with all values mapping to $0$
 \end{example}
 
-And yet a meetier example is:
+And yet a meatier example is:
 
 \begin{example}
 Define $x_{n} = (1 + \frac{2}{n})^{n}$ and a subsequence $x_{2k}$. We notice that 
 $$ \lim_{k \to \infty}{(1 + \frac{1}{k})^{2k}} = \lim_{k \to \infty}{(1 + \frac{1}{k})^{k})^{2}} = e^{2}$$
 \end{example}
 
-\clearpage
 
 \begin{theorem}
 If a sequence $x_{n}$ converges to $a$, then so do all subsequences of $x_{n}$
@@ -706,23 +711,6 @@ A sequence is Cauchy convergent if $\forall \epsilon > 0$, $\exists n_{\epsilon}
 
 A very important theorem concerning Cauchy convergence is:
 
-\begin{theorem}
-$x_{n}$ is convergent iff. it is Cauchy convergent. 
-\end{theorem}
-
-\begin{proof} (1)Suppose $x_{n}$ is convergent. Now set $x := \lim_{n \to \infty}{x_{n}}$ By definition we have that $\forall \epsilon$ $\exists n_{\frac{\epsilon}{2}}$ such that $\forall n,m \geq n_{\frac{\epsilon}{2}}$ 
-\begin{align*}
-    |x_{n} - x| \leq \frac{1}{2}\epsilon\\
-    |x_{m} - x| \leq \frac{1}{2}\epsilon
-\end{align*}
-And noticing that $|x_{n} - x_{m}| = |x_{n} - x + x - x_{m}| \leq |x_{n} - x| + |x - x_{m}| \leq \epsilon$
-\\
-(2) We now prove the opposite direction. 
-
-% comme back to this section to complete!!!! 
-
-\end{proof}
-
 
 \section{Series}
 
@@ -732,7 +720,7 @@ A series $S_{n}$ is defined in terms of the summation of some sequence $x_{n}$.
 $$S_{n} = \sum_{k=0}^{n} x_{n}$$
 \end{definition}
 
-\begin{theorem}(Bernoulli Inequality(Known as the negative case of it))
+\begin{theorem}(Bernoulli Inequality(Known as the negative case of it)
 \\
 Whenever $-1<x<0$ we have that $(1+x)^{n} \geq 1 + nx$
 \end{theorem}
@@ -740,9 +728,12 @@ Whenever $-1<x<0$ we have that $(1+x)^{n} \geq 1 + nx$
 
 \begin{definition}(Cauchy criterion for series)
 A series $S_{n}$ is convergent iff: 
-$$ \forall \epsilon >0, \exists n_{\epsilon} \ \forall n,m > n_{epsilon} \ \sum_{k = n=1}^{m} |x_{k}| \leq \epsilon$$
-
+$$ \forall \epsilon >0, \exists n_{\epsilon} \ \forall n,m > n_{epsilon} \ \sum_{k = n+1}^{m} |x_{k}| \leq \epsilon$$
 \end{definition}
+
+\begin{theorem}
+As follows from the Cauchy criterion, we have that  $\forall \epsilon >0, \exists n_{\epsilon} \ \forall n,m > n_{epsilon} \ \sum_{k = n+1}^{m} |x_{k}| \leq \epsilon$ which means that if we let $m=n+1$ we obtain $|x_{n+1}|\leq \epsilon$ which by definition of the limit says that $x_{n+1}$ goes to 0. 
+\end{theorem}
 
 
      \begin{tcolorbox}[drop shadow, title = (Yet another way to obtain e),lower separated=true]
@@ -780,7 +771,7 @@ $$ \forall \epsilon >0, \exists n_{\epsilon} \ \forall n,m > n_{epsilon} \ \sum_
 \clearpage
 
 \begin{definition}
-A series is convergent if simply $S_{n}$ is convergent and it is absolute convergent if $S_{n} = \sum_{k=0}^{n} x_{k}$ is convergent.
+A series is convergent if simply $S_{n}$ is convergent and it is absolute convergent if $S_{n} = \sum_{k=0}^{n} |x_{k}|$ is convergent.
 \end{definition}
 
 Now a very important theorem is the following:
@@ -799,6 +790,41 @@ assume $\exists n_{0}$ s.t. $0\leq x_{n} \leq y_{n} \ \forall n \geq n_{0}$ Then
 \end{enumerate}
 \end{theorem}
 
+And more theorems:
+
+\begin{theorem}
+Whenever $x_{k} \geq 0$ a series is:
+\\
+\begin{empheq}[left =\text{$\sum_{k=0}^{\infty} x_{k}$}\empheqlbrace]{align*}
+\text{Convergent if $S_{n}$ is bounded.} \\
+\text{Divergent else.}
+\end{empheq}
+\end{theorem}
+
+And now we define a \textbf{Leibniz series} as being of form $S_{n} = \sum_{k=0}^{n} (-1)^{k}(x_{k})$ And the important Leibniz criterion is:
+
+\begin{theorem}
+For a Leibniz $S_{n}$, $S_{n}$ diverges if $x_{k}$ is decreasing and $\lim_{n\to\infty}(x_{n}) = 0$
+\end{theorem}
+
+\begin{prop}
+If $S_{n}$ is absolute convergent, then it is convergent. 
+\end{prop}
+
+The above is obvious to see using Cauchy criterion. Now absolute convergence implies:
+
+$$ \sum_{k=n+1}^{m} |x_{k}| \leq \epsilon$$ and the triangle inequality gives us that $$ |\sum_{k=n+1}^{m} x_{k}| \leq \sum_{k=n+1}^{m} |x_{k}| $$ hence we know that $$  |\sum_{k=n+1}^{m} x_{k}| \leq \epsilon$$ which is exactly what we want. 
+And the last thing we do on series is to present the Cauchy and Alembert convergence criteria:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/analysis/figures/series.JPG}
+    \caption{Yes I was lazy to write this down}
+    \label{fig:my_label}
+\end{figure}
+
+
+  
 
 
 
