@@ -4,6 +4,7 @@
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{float}
 \usepackage[
 top    = 2.50cm,
 bottom = 2.50cm,
@@ -17,6 +18,10 @@ right  = 2.75cm]{geometry}
 \newtheorem{thm}{Theorem}[subsection]
 \newtheorem{property}{Property}
 \newtheorem{cor}{Corollary}[subsection]
+\newtheorem{prop}{[Proposition]}
+\newtheorem{rem}{Remark}[subsection]
+\newtheorem{definition}{Definition}[subsection]
+\numberwithin{equation}{subsection}
 
 \title{Linear Algebra 1}
 \author{alp.ozen}
@@ -329,11 +334,401 @@ $$ v_{1} = - \frac{a_{2}}{a_{1}}v_{2} - \ldots - \frac{a_{k}}{a_{1}}v_{k}$$
     \tag*{\qedhere}
 \end{proof}
 
+\subsection{Lec 05 notes}
+
+\begin{property}
+A linear $T$ maps linear line segments in $\mathbb{R}^{n}$ to linear line segments in $\mathbb{R}^{m}$ 
+\end{property}
+
+\subsubsection{Matrix transformations}
+
+\begin{tcolorbox}
+  In general, the columns of a matrix are the dimensions of the domain set and the rows of the matrix are the codomain. 
+\end{tcolorbox}
+
+\begin{thm}
+Let $T$ be a square matrix, that is $T:\mathbb{R}^n \to \mathbb{R}^n$. Then, T is surjective iff it is injective. 
+\end{thm}
+
+\begin{proof} Proving both directions:
+\\
+($\rightarrow$) (T is injective iff T is surjective)
+\\
+Now whenever T is surjective, we have that there are no rows of 0. It also means that each row has a pivot. Given this, we check the condition that $T(v_{1}) = T(v_{2}) \rightarrow v_{1} = v_{2}$ Now we would essentially obtain this in trying to solve it:
+\begin{equation*}
+    T \times v = a
+\end{equation*}
+where $a \in \mathbb{R}^n$. Now because the reduced matrix has no 0 row and as many pivots as the number of variables, we get that there is only one such $v$ resulting in $v_{1} = v_{2}$
+\\
+($\leftarrow$) (T is surjective iff T is injective)
+From $T$ is injective, we get that there is only one solution to $T \times v = a$ and considering the homogeneous $Tv=0$ we get that only 0 would be the solution implying columns of T are a basis hence must span $\mathbb{R}^n$
+ \tag*{\qedhere}
+
+\end{proof}
+
+\subsection{Linear transformations}
+
+\begin{definition}
+A linear map is function between $\mathbb{R}^n \to \mathbb{R}^m$ such that:
+\begin{align*}
+    i) \ cT(v) = T(cv) \forall c \in \mathbb{R}, \forall v \in \mathbb{R}^n\\
+    ii) \ T(v + u) = T(v) + T(u) \forall v,u \in \mathbb{R}^n
+\end{align*}
+\end{definition}
+
+A condition equivalent to a linear map is:
+\begin{prop}
+Whenever we can show that for some $T$, $T(cv_{1} + dv_{2}) = cT(v_{1}) + dT(v_{2})$, we have that $T$ is a linear map.
+\end{prop}
+
+\begin{proof}(We must show both conditions i) and ii) defined above)
+\\
+
+Now showing i) is simple. Simply fix $d=0$. Then we get that $T(cv_{1} + 0) = cT(v_{1})$.
+\\
+
+To show ii), fix $c,d$ to be 1 and there we have it!
+
+\end{proof}
+
+
+\begin{thm}
+For a linear transformation $T:\mathbb{R}^n \to \mathbb{R}^m$, there exists a unique $m\times n$matrix $A$ such that $T(x) = Ax$
+\end{thm}
+
+\begin{proof}
+Now, we can write $x$ as $I_{n}x$ from which we get $\begin{bmatrix}
+    e_{1} \ldots e_{n}
+\end{bmatrix}x = x_{1}e_{1} + \ldots + x_{n}e_{n}$. Taking $T(x)$ we obtain $x_{1}T(e_{1}) + \ldots + x_{n}T(e_{n})$ which is equal to $$\begin{bmatrix}
+    T(e_{1}) \ldots T(e_{n})
+\end{bmatrix} \begin{bmatrix}
+    x_{1} \\
+    \vdots \\
+    x_{n} 
+\end{bmatrix}$$
+\end{proof}
+
+And here are some examples to capturing linear transforms as matrices mainly in $\mathbb{R}^2$
+\begin{example}
+\begin{enumerate}
+    \item Anti-clockwise rotation by $\theta$ degrees. $A = \begin{bmatrix}
+        \cos{\theta} & -\sin{\theta}\\
+        \sin{\theta} & \cos{\theta}
+    \end{bmatrix}$ 
+    \item $T(x) = 3x$ for $x \in \mathbb{R} ^ 2$, then $A = \begin{bmatrix}
+        3 & 0 \\
+        0 & 3
+    \end{bmatrix}$
+    \item Reflection through the y-axis $A = \begin{bmatrix}
+        -1 & 0\\
+        0 & 1
+    \end{bmatrix}$
+    \item Contraction or an expansion depending on $k$ $ A = \begin{bmatrix}
+        k & 0\\
+        0 & 1
+    \end{bmatrix}$ 
+    \item Shear $\begin{bmatrix}
+        1 & k\\
+        0 & 1
+    \end{bmatrix}$
+    \item Projection $\begin{bmatrix}
+        0 & 0\\
+        0 & 1
+    \end{bmatrix}$
+    
+\end{enumerate}
+\end{example}
+
+
+And now we present some theorems relating to surjectivity and injectivity:
+
+\begin{thm}
+Taking $T: \mathbb{R}^n \to \mathbb{R}^m$ we have that $T$ is injective iff the homogeneous $T(x) = 0$ has the trivial solution. 
+\end{thm}
+
+\begin{proof}(To show this, we show that the two statements always have the same truth value, that they are equivalent)
+
+Now when $T(x)$ is injective, it means that $T(x) = 0$ can have only a unique solution by definition of injectivity. Now when $T(x)$ is not injective, it means that $\exists b$ s.t. $T(u) = b$ and $T(v) = b$ where $u \not = v$. Now $T(u) - T(v) = b-b = 0 = T(u-v)$ and since $u\not=v$ we have that $0$ is not the only solution.
+\end{proof}
+
+\section{Matrix algebra}
+
+\subsection{Basics}
+
+\begin{property}
+Properties of the matrix transpose:
+\begin{align*}
+    (A^T)^T = A\\
+    (A + B)^T = A^T + B^T\\
+    (rA)^T = rA^T\\
+    (AB)^T = B^TA^T
+\end{align*}
+\end{property}
 
 
 
+\begin{property}
+\begin{align*}
+    A + B = B + A\\
+    (A + B) + C = A + (B + C)\\
+    A + 0 = A\\
+    r(A + B) = rA + rB\\
+    (r+s)A = rA + rS\\
+    rs(A) = r(sA)
+\end{align*}
+\end{property}
+
+And here is the general formula for the $i-j^{th}$ entry of $AB$ whenever defined:
+
+$$(AB)_{ij} = a_{i1}b_{1j} + \ldots + a_{in}b_{nj}$$
+
+\begin{remark}
+We note that Matrices who's entries belong to $\mathbb{R}$ form a vector space.
+\end{remark}
+
+And now some warnings about matrix multiplication. We note that in general if $AB = AC$ then it does not hold that $B=C$ And if $AB=0$ we can not conclude that $A$ or $B$ is $0$. We also note that whenever a matrix has entries only along its main diagonal, then to take any power, we simply take the power of each diagonal entry. 
+\\
+A transpose of a matrix is defined as swapping the rows of $A$ with its columns. \\
+\begin{thm}
+A matrix $A$ is invertible if $\exists C$ s.t. $AC = I , CA=I$ meaning that the inverse is unique. Non-invertible matrices are called \textbf{singular}. And note that only square matrices are invertible. The reason for this is that for a matrix to be invertible, it must be bijective which can only be the case if it is square 
+\end{thm}
+
+\begin{proof}(Proving that the inverse matrix is unique)
+Suppose $\exists B,C s.t. AB = I, \ AC=I$. We want to show that $B = C$.
+\\
+$B = BI = BAC = IC = C$
+\end{proof}
 
 
+\subsection{Computing inverses}
+
+The way we find inverses is best done by Gaussian elimination. We are simply looking for a solution to the equation $Ax=I$ hence we write this as an augmented matrix $\begin{bmatrix}
+    A | I
+\end{bmatrix}$ and solve. 
+
+\begin{thm}
+\textbf{Elementary} matrices are obtained by only performing one elementary row operation on an identity matrix, thus all elementary matrices are invertible.
+\end{thm}
+
+\begin{thm}
+Because inverses are only defined on bijective mappings, whenever a square matrix is invertible, we have that $Ax=b$ has a unique solution $x = A^{-1}b$
+\end{thm}
+
+\subsection{Every matrix is the product of elementary matrices with the identity}
+
+Consider the matrix $E_{1}=$\begin{bmatrix}
+    1 && 0 && 0\\
+    0 && 1 && 0\\
+    -4 && 0 && 1
+\end{bmatrix} and $A=$ $E_{1}=$\begin{bmatrix}
+    a && b && c\\
+    d && e && f\\
+    g && h && i
+\end{bmatrix} Then notice that $E_{1}A=$ $E_{1}=$ \begin{bmatrix}
+    a && b && c\\
+    d && e && f\\
+    g -4a && h -4b && i -4b
+\end{bmatrix}
+
+Which goes on to show that every row operation can be represented as the product of elementary matrices. 
+
+\subsection{Characterizing inverse matrices}
+
+
+ \begin{tcolorbox}[drop shadow, title=(Theorem on inverse matrices),lower separated=true]
+    \centering
+        \includegraphics[scale = 0.9,valign=t]{epflSemesterOne/linearAlgebra/figures/invertible.JPG}
+\end{tcolorbox}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{epflSemesterOne/linearAlgebra/figures/proof.JPG}
+
+\end{figure}
+
+\section{Determinants}
+\subsection{Basics}
+
+First of all, determinant is only defined on an $nxn$ matrix and is denoted $det(A)$ or simply $|A|$
+\\
+The most useful formula for a determinant is 
+
+$$ det(A) = \sum_{j=1}^{n} a_{1j}C_{1j}$$ or equivalently 
+$$ det(A) = \sum_{i=1}^{n} a_{i1}C_{i1}$$
+where $C_{ij}$ which is known as a \textit{cofactor} of matrix A is defined as:
+
+$$ C_{ij} = (-1)^{i+j}det(A_{ij})$$ wherein $A_{ij}$ denotes a submatrix of A obtained by cancelling out the ith row and jth column of A. 
+\\
+Now the above formula is one way to calculate the determinant. An alternative method comes from the realization that whenever a matrix is triangular, its determinant is the product of the terms along its diagonal. Hence given a matrix $A$ we may row reduce it to its echelon form and simply find the product of all pivots. But noticing how 
+
+$$ A = E_{1}\ldots E_{n}I$$ we get that
+
+$$det(A) = det(E_{1})\ldots det(E_{n})$$
+
+which means that because after row reduction we obtain $[I | A^{-1}]$, $det(A) = det(E_{1})\ldots det(E_{n}) \cdot det(I)$
+
+This brings us to the following properties:
+
+\begin{enumerate}
+    \item If a multiple of one row is added to another to obtain matrix $B$, then $det(A) = det(B)$
+    \item If a row is scaled by $k$ to obtain matrix $B$, then $det(B) = k \cdot det(A)$
+    \item If two rows are interchanged, then $det(B) = -det(A)$
+\end{enumerate}
+
+\clearpage
+
+And now a very important theorem is:
+
+\begin{thm}
+A matrix is $A$ invertible iff $det(A) \not = 0$ 
+\end{thm}
+
+\begin{proof}
+When a matrix is invertible, we have that the solution to $Ax = 0$ is unique implying linear independence. And linear independence implies that $det(A) \not = 0$. 
+\end{proof}
+
+\begin{thm}
+If $A$ is $nxn$, then $det(A^{T}) = det(A)$
+\end{thm}
+
+\begin{proof}
+This is obvious. We have that the cofactors along the columns of $A^{T}$ are equal to cofactors of $A$ along rows and by definition of the transpose we have that $a_{1j} = a_{j1}$ which implies the coefficients are also equal. This also suggests why the earlier formula for $det(A)$ comes in two forms. 
+\end{proof}
+
+And now yet another theorem:
+
+\begin{thm}
+$det(AB) = det(A)det(B)$
+\end{thm}
+
+
+And now we come to Cramer's rule. It provides us with an alternative method for solving a system of equations using determinants. It states the following:
+
+\begin{thm}(\textbf{Cramer's Rule})
+\\
+Where $A$ is an $n x n$ matrix, the solution to $Ax=b$ is of form 
+$$x_{i} = \frac{|A_{i}(b)|}{|A|} \ i=1,2,3\ldots$$ 
+where $A_{i}(b)$ is obtained by replacing the ith column of A with the vector b.
+\end{thm}
+
+\begin{proof}
+Again quite simple. Notice that 
+
+$$A\cdot I_{i}(b) = A[e_{1} \ldots b \dots e_{n}] = [a_{1} \ldots \underbrace{b}_{since Ax = b} \ldots a_{n}] = A_{i}(b)$$
+Taking determinants we get $$det(A)\underbrace{det(I_{i}(b)}_{=x_{i}} = det(A_{i}(b)$$ to give $$ x_{i} = \frac{det(A_{i}(b))}{det(A)}$$
+\end{proof}
+\\
+And now an important theorem is the following:
+
+\begin{thm}
+The area of the parallelogram determined by $a_{1}$ and $a_{2}$ is the same as that determined by $a_{1}$ and $a_{2} + ca_{1}$
+\end{thm}
+
+And furthermore:
+
+\begin{thm}
+For a linear transformation $T: \mathbb{R^{n}} \to  \mathbb{R^{n}}$ we have that whenever S is the generic shape in this vector space than the new area after T is given by:
+
+$$ |T(s)| = |\det{A} \cdot |S|s$$
+\end{thm}
+
+\clearpage
+
+\section{More on vector spaces}
+\subsection{Basics}
+
+\begin{tcolorbox}
+\begin{definition}
+A \textbf{Vector space} is an algebraic structure satisfying:
+
+\begin{enumerate}
+    \item For some vector set $V$ we have that $V$ is an abelian group under addition.
+    \item Scalar multiplication between members of a scalar field and vector elements is defined and closure holds.
+    \item Scalar multiplication of a vector associates
+    \item $\forall v \in V$ we have that $1\cdot v = v$
+    \item Multiplication of a scalar with two vectors distributes and multiplication of a vector with two scalars distributes. 
+\end{enumerate}
+\end{definition}
+\end{tcolorbox}
+
+Now three important facts that follow from these axioms are:
+
+\begin{align}
+    \label{1}0v = 0 \ \forall v \in V\\
+    \label{2}c0 = 0 \ \forall c \in F\\
+    \label{3}-u = (-1)u \ \forall u \in V
+\end{align}
+
+Let's prove these solely using the axioms. 
+\begin{proof}
+\\
+
+\textbf{\ref{1}}
+$$ 0v = (a-a)v = \underbrace{av - av}_{\text{\makebox[0pt]{additive inverse} }} = 0 $$
+
+\textbf{\ref{2}}
+
+$$ c0 = c(0-0) = c0 - c0 = 0$$
+
+\textbf{\ref{3}}
+\begin{align*}
+    0u = (1-1)u\\
+    0 = u + (-1)u\\
+    -u = \underbrace{-u + u + (-1)u}_{\text{\makebox[0pt]{right additive inverse} }}
+\end{align*}
+\end{proof}
+
+
+\begin{definition}
+For a vector space $V$, $S$ is said to be a subspace if:
+
+\begin{enumerate}
+    \item $0_{v} \in S$
+    \item $S$ is closed under scalar multiplication and vector addition
+\end{enumerate}
+\end{definition}
+
+\begin{definition}(Null space)
+\\
+For some matrix $A$, the \textbf{Null space} is such that:
+$$Nul A = \{v\in V| Av = 0_{v}\} $$
+\end{definition}
+
+\begin{prop}
+$Nul A$ is a subspace of $V$
+Now clearly $0 \in V$ as $0$ is the trivial solution to $Ax = 0$.
+\\
+We now need that $\forall u,v \in Nul A$, $u+v \in Nul A$.
+$$A(u+v) = \underbrace{Au + Av}_{\text{\makebox[0pt]{matrices are linear maps}}} = 0 + 0 = 0$$
+\\
+We now also need $\forall u \in Nul A, \ cu \in A$
+
+$$ A(cu) = cA(u) = c0 = 0$$
+\end{prop}
+
+
+\begin{thm}
+The span of any single vector space elements is a subspace. 
+\end{thm}
+
+\begin{definition}(Column space
+The column space $Col A$ is the set of all possible linear combinations of the columns of a matrix A and is also a subspace.
+\end{definition}
+
+
+And now some examples of vector spaces:
+
+\begin{example}
+\begin{itemize}
+    \item $\mathbb{R}^{n}$ is the most common example equipped with $\mathbb{R}$ as scalars.
+    \item Set of polynomials of degree at most $n$ denoted $P_{n}$
+    \item set of all real valued functions. This one is a little more subtle. Our 'vectors' are functions $f(x)$ and for instance the 0 vector is the map $g(x) = 0$. We define addition as $f(x) + g(x) = (f+g)(x)$ and scalar multiplication as $cf(x) = f(cx)$
+\end{itemize}
+\end{example}
+
+Under light of vector spaces, a \textbf{linear transformation} is now much more clear as being a mapping that respects the two operations of vector spaces. 
 
 
 
