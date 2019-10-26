@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[titlepage]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[dvipsnames]{xcolor}
@@ -8,6 +8,12 @@
 \usepackage{amsthm}
 \usepackage{proof}
 \usepackage{float}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily,
@@ -29,9 +35,9 @@ right  = 2.75cm]{geometry}
 \rhead{EPFL/Alp Ozen}
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}
 
-\title{Advanced Computation 1 - CS 101}
+\title{\textbf{Advanced Computation 1 / CS 101}}
 \author{Alp Ozen}
-\date{\vspace{-5ex}}
+\date{Fall 2019}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{example}{Example}
 \newtheorem{remark}{Remark}
@@ -43,6 +49,15 @@ right  = 2.75cm]{geometry}
 \begin{document}
 
 \maketitle
+
+\tableofcontents
+
+\\
+    \blfootnote{! Notes \textcolor{gray}{starting in gray} and \textcolor{gray}{ending with grey} are from Prof.Lenstra's own lecture notes.}
+
+
+\clearpage
+
 \section{Propositional logic and notions of sets(Week 1 - Week 4)}
 \subsection{Propositions}
 A proposition is a declarative sentence that is either true or false. 
@@ -679,7 +694,7 @@ When it comes to the cache, cache implements a compromise between spatial and te
 An example is that Fortran caches 2-D arrays in column format. Hence to exploit spatial locality, when multiplying $A X B$ we would need to transpose $A$ and define matrix multiplication purely in terms of column to column inner products. 
 \clearpage
 \textbf{Binary search} When performing binary search on an ordered list, we let $m := \floor{\frac{n}{2}}$ for a list of $n$ items. Now whenever $l \not = l_{m}$ and our saught after element $l < l_{m}$ we reduce array size to range $l_{1}, .... , l_{m-1}$ and else to $l_{m+1}, .... , l_{n}$. Repeating the previous step, we obtain the in the worst case, we perform the floor operation until we reach the largest $k$ such that $\frac{n}{2^{k}} < 1$ to give us that $k$ which is how many steps we take is bounded by $\log_{2}n$ as $k < log_{2}n$
-\subsection{Sorting algorithms}
+\subsubsection{Sorting algorithms}
 
 
 \begin{tcolorbox}[drop shadow, title=(Overview of algorithms),lower separated=true]
@@ -687,25 +702,244 @@ An example is that Fortran caches 2-D arrays in column format. Hence to exploit 
 Simply arrange similar elements into buckets and the apply any sorting algorithm.
 \\
 \textbf{Bubble sort}
-\begin{verbatim}
-    for(i = 1 to n-1){ if(l_{i} > l_{i+1}){.swap(l_{i},l_{i+1}}}
-\end{verbatim}
-We have the worst case is $\sum_{i=1}^{n} (n-i)$ swaps hence $O(n^2)$
+\begin{lstlisting}
+    for(i = 1 to n-1){ if($l_{i}$ > $l_{i+1}$){.swap($l_{i},l_{i+1}$}}
+\end{lstlisting}
+The worst case is $\sum_{i=1}^{n} (n-i)$ swaps because for the largest element we have $(n-1)$ comparisons and swaps, for the second largest $(n-2)$ and so on which means that in the worst of cases we perform  $\sum_{i=1}^{n} (n-i)$ many operations which is $O(n^2)$. Now in the best case we have simply $n-1$ comparisons which is $\Omega(n)$
 \\
 \textbf{Selection sort}
-Locate largest element and swap with last element. Then iterate for array of size $n-1$. 
+To order in increasing order do: Locate smallest element in unsorted list and replace with first element in unsorted list. 
 \\
-\textbf{Insertion sort}
+\textbf{Insertion sort} Inserts $l_{2}$ in the right spot in the already sorted list $\{l_{1}\}$ and so on. Now at the $k^{\text{th}}$ step we have $\log_{2}(k)$ many comparisons using binary search. Hence total operations are bounded by $\sum_{k=1}^{n-1}(\log_{2}(k)$ comparisons. Insertion sort is $\Theta(n\log(n))$ if generally we use linked lists which prevent shifting problem present with arrays. 
 \\
 \textbf{Quick sort}
+Take a pivot $l_{i}$ then create sublists $S_{1}$ of all smaller items and $S_{2}$ of all larger items. Then sort $S_{1}$ and $S_{2}$ using same method
 \\
 \textbf{Merge sort}
+Treat each single element as a sorted list. Then take sublists of two elements and sort. Then merge each sublist making sure the ordering. Each new sublist of 4 elements is merged again and so on. We have that there are in total $\log_{2}(n)$ sublists with at most n comparisons hence $\Theta(n\log_{2}(n))$
 \\
 \textbf{Heap sort}
-    
+Create a tree using the initial order elements are given in. Then transform tree into a heap(calling heapify) by replacing each heap-violating node with child-element. Once heap is obtained, swap the largest parent with lowest child. Add largest parent to end of sorted list. Repeat process until tree contains only one element. Heap sort is $\Theta(n\log_{2}(n))$
 \end{tcolorbox}
 
+
+\subsection{Lec 13. notes}
+\subsubsection{Some problems}
+We begin with an interesting theorem. Given that $g_{1}$ and $g_{2}$ for $g_{i}: \mathbb{N} \to \mathbb{R^{*}_{+}$} and $f:\mathbb{N} \to \mathbb{R^{*}_{+}}$ are $\Theta(f)$ we want to show that $g_{1} + g_{2}$ is $\Theta(f)$ Now we know that:
+
+$$ \exists k_{i},C_{i,n} \ \forall x > k_{i} \ C_{1,1}|f(x)| \leq |g_{1}(x)| \leq C_{1,2}|f(x)|$$ 
+and :
+$$ \ C_{2,1}|f(x)| \leq |g_{2}(x)| \leq C_{2,2}|f(x)|$$
+
+Now seeing that $g_{1}(x) + g_{2}(x)$ is $O(f)$ is easy since $|g_{1}(x)| + |g_{2}(x)| \geq |g_{1}(x) + g_{2}(x)|$ which when we add our inequalities we obtain:
+
+$$|g_{1}(x)| + |g_{2}(x)| \leq C_{1,2}+C_{2,2}(|f(x)|)$$ implying that $g_{1}(x) + g_{2}(x)$ is $O(f)$. For the $g_{1}(x) + g_{2}(x)$ is $\Omega(f)$ part, we know that our functions have the natural numbers as a domain which means that $|g_{1})(x)| + |g_{2}(x)| = g_{1}(x) + g_{2}(x)$ and since $C_{1,1}+C_{2,1}(|f(x)|) \leq |g_{1})(x)| + |g_{2}(x)|$ we have that $g_{1}(x) + g_{2}(x)$ is $\Omega(f)$. Yet this proof also shows that in general \textbf{$g_{1} + g_{2}$ is not $\Theta(f)$}. For instance when the $g_{i}: \mathbb{N} \to \mathbb{R}$ it is not always true that $g_{1} + g_{2}$ is not $\Theta(f)$.
+
+\begin{example}
+Let $g_{1}(x) = - g_{2}(x)$. Then we have that $g_{1} + g_{2} = 0 < c|f(x)|$ which as a consequence shows that $g_{1} + g_{2}$ is not $\Theta(f)$
+\end{example}
+
+
+\begin{example}
+We now consider how to pin down the complexity of a given program. Suppose we are given:
+
+\begin{lstlisting}
+    for i=1 to n
+        for j=1 to $\floor{\frac{n}{2}}$
+            x = x + 1;
+\end{lstlisting}
+
+Now looking at the inner loop we see that it yields $\sum_{j=1}^{\frac{n}{2}} 1$ steps at most. And the two loops combined therefore yield $$\sum_{i=1}^{n}\sum_{j=1}^{\frac{n}{2}} 1$$ which is equal to:
+
+$$\sum_{i=1}^{n} (\frac{i}{2}) = \frac{1}{4} n^{2} + n $$
+\end{example}
+
+\subsubsection{More complexity stuff}
+An equivalent definition to Big-O is in terms of limsup as:
+
+$$ f \text{is }O(g) \iff \limsup_{x\to\infty}{\frac{|f(x)|}{|g(x)|}} < \infty  $$
+
+Which simply means that after some arbitrarily large $x$, f must increase at a lower rate than $g(x)$. Thus this definition may be used in showing that the witnesses exist. 
+\\
+And yet another complexity definition is:
+\begin{definition}
+$f$ is $o(g)$ (read f is little-o) whenever:
+$$ \forall C > 0, \ \exists k \ \forall x>k, \ |f(x)| < C|g(x)|$$ Or equivalently:
+
+$$ \lim_{x\to\infty}\frac{f(x)}{g(x)} = 0$$
+
+\textit{We note that $f$ is $o(g)$ implies that $f$ is $O(g)$ as we may simply use universal instantiation to see this.}
+\end{definition}
+\\
+\textbf{Fixed powers} For all positive constants $d,l$ we have that if $d \geq l$ then $n^l$ is $O(n^d)$ since $\limsup{\frac{n^l}{n^d}} < 1$.
+\\
+
+\textbf{Polynomials} For some polynomial $f(x)$ of degree $n$ such that:
+
+$$ f(x) = \sum_{i=0}^{n}a_{i}x^{i}$$ we have that $f is O(x^{i})$ This may be seen since $f(x) \leq a_{max}x^{0} + \ldots + a_{max}x^{n} \leq a_{max}(d+1)x^{n} (\forall x > 1)$
+\\
+
+\textbf{Exponentials} Now for some exponential $S(n)$ such that: $$ S(n) = \sum_{i=0}^{n}a_{i}i^{d} $$
+We have that each term is at most as big as $a_{max}n^{d}$ and with $n$ many such terms we have that $S(n) \leq na_{max}n^{d} = a_{max}n^{d+1}$ hence $S$ is $O(n^{d+1})$.
+\\
+
+\textbf{Powers of logarithms} (Note that this argument works for logarithms of any base). Suppose $f(x) = (\log(x)^t$ where t is a constant. Then $f$ is $O(n^{\epsilon})$ where $\epsilon$ is any real number larger than 0. 
+\\
+\textbf{More on logarithms} For constant $\sigma$ it is the case that $\log(n^\sigma)$ is $O(\log(n))$ and this is never the case without logarithms!
+\\
+We also have that for constant $\Gamma$ and $\sigma$ and whenever $a>b>1$ we have that $\log_{b}(x^{\sigma})$ is $O(\log_{a}x^{\Gamma})$ and not the other way around. We also have that for any $a,\Gamma > 1$ $\log_{a}(x^{\Gamma}$ is $O(\log(X)$ which may be seen via change of base. 
+\\
+
+\begin{tcolorbox}[drop shadow, title=(Properties and non-properties of big-O),lower separated=true]
+{\bf{Properties and non-properties of big-$O$}} Let $f_i$ and $g_i$ be functions such that $f_i$ is $O(g_i)$ for $i=1,2$. It is often assumed that if some standard operation (such as addition (where $(f_1+f_2)(x)=f_1(x)+f_2(x)$), multiplication (where $(f_1f_2)(x)=f_1(x)f_2(x)$), powering (where $2^{f_i}(x)=2^{f_i(x)}$), logarithm (where $(\log(f_i))(x)=\log(f_i(x))$) is applied to the $f_i$-functions, that then the resulting composed function is again the big-$O$ of the same composition of the $g_i$-functions.
+\begin{description}
+\item[Addition (wrong)] \textcolor{gray}{In general} it is not the case that the function $f_1+f_2$ is $O(g_1+g_2)$: take for instance $g_2=-g_1$. It is not hard to prove, however, that $(f_1+f_2)(x)$ is $O(\max(|g_1(x)|,|g_2(x)|)$ (use the triangle inequality $|x+y|\le|x|+|y|$ -- can you prove the triangle inequality?).
+\item[Multiplication (exceptionally correct)] It is true (and it is not hard to prove) that the function $f_1f_2$ is $O(g_1g_2)$.
+\item[Powering (wrong)] In general it is not the case that $2^{f_1}$ is $O(2^{g_1})$: take for instance $f_1(x)=2x$ and $g_1(x)=x$, then $f_1$ is $O(g_1)$ (witness $C=2$), but $$\frac{2^{f_1}(x)}{2^{g_1}(x)}=\frac{2^{f_1(x)}}{2^{g_1(x)}}=\frac{2^{2x}}{2^x}=2^x$$
+and $2^x$ can obviously not be bounded by any constant (for $x$ going to infinity) as would be required by $2^{f_1}$ being $O(2^{g_1})$ (remember the equivalence of ``$f$ is $O(g)$'' and $\limsup_{x\to\infty}\frac{|f(x)|}{|g(x)|}<\infty$:
+because $\limsup_{x\to\infty}\frac{|2^{f_1}(x)|}{|2^{g_1}(x)|}=\infty$ it is not the case that $2^{f_1}$ is $O(2^{g_1})$).
+Note that an incorrect answer is given to exercise 29 of Section 3.2 of the seventh edition of the book.
+In the eighth edition it is exercise 42 in Section 3.2.
+\item[Logarithm (wrong)] In general $\log(f_1)$ is not $O(\log(g_1))$. All we know about $f_1$ and $g_1$ is that there is a positive constant~$C$ (say $C>2$) such that for all large enough $x$ it is the case that $|f_1(x)|\le C|g_1(x)|$. It follows that $\log(|f_1(x)|)\le\log(C)+\log(|g_1(x)|)$, but that does not imply $|\log(f_1(x))|<\tilde C|\log(g_1(x))|$ for some constant $\tilde C$ and large enough $x$, as required for $\log(f_1)$ being $O(\log(g_1))$. If $f_1$ and $g_1$ are increasing and unbounded it follows that $f_1(x)>1$ and $g_1(x)>1$ for all $x>y$ for some $y$, so that logarithm-accidents involving huge negative values are avoided and we have $\log(f_1(x))\le\log(C)+\log(g_1(x))= \log(C)\frac{\log(g_1(x))}{\log(g_1(x))}+\log(g_1(x))$ and thus, using again that $g_1$ is  increasing, that $\log(f_1(x))\le\log(C)\frac{\log(g_1(x))}{\log(g_1(y))}+\log(g_1(x))\le\tilde C\log(g_1(x))$, where $\tilde C=\frac{\log(C)}{\log(g_1(y))}+1$. 
+\item[Little-$o$ properties] Assume that $f$ is $o(g)$. Not only does this not imply $2^f$ is $o(2^g)$ (example: take $f(x)=\frac1{x^2}$ and $g(x)=\frac1x$) but neither does it imply that $\log(f)$ is $o(\log(g))$ (example: take $f(x)=x$, $g(x)=x^2$).
+Addition and multiplication properties are maintained \textcolor{gray}{though.}
+\end{description} 
+\end{tcolorbox}
+\\
+\clearpage
+
+
+\textbf{\textcolor{gray}{Symmetries and lack thereof}}
+It is obvious that $f$ is $O(f)$ (but, as seen above, $f$ is not $o(f)$).
+Generally speaking ``$f$ is not $O(g)$'' does not imply ``$g$ is $O(f)$'': indeed, functions $f$ and $g$ can be constructed such that it is not the case that $f$ is $O(g)$ and it is not the case that $g$ is $O(f)$. A dull example is $f(x)=\sin(x)$ and $g(x)=\cos(x)$; more interesting examples would be where both $f$ and $g$ are strictly increasing functions (cf. this week's exercises).
+
+Note that if $f$ is $O(g)$ it may be the case that $g$ is $O(f)$ as well or it may be the case that $g$ is not $O(f)$.
+The negation of $f$ is $O(g)$, i.e., ``it is not the case that $f$ is~$O(g)$'' or equivalently ``$f$ is not $O(g)$'', immediately follows from the above definition of big-$O$:
+$$\text{``}f\text{ is not }O(g)\text{'' is equivalent to: }\,\,\,\,\,\,\,\,\,\forall\, C, k\,\,\,\exists x>k\,\,\,|f(x)|> C|g(x)|.$$
+Thus, an ``occasional $x$'' (i.e., {\bf not necessarily all} $x$) that breaks the ``$\le$'' as required by big-$O$ suffices to negate $f$ is $O(g)$.
+It follows that {\color{red}{to prove that $f$ is not $O(g)$ it suffices to find, for any constants $C>0$ and $k$, \underline{some} $x>k$ (not necessarily \underline{all} $x>k$) for which $|f(x)/g(x)| >C$}}.\\
+\par\noindent
+{\bf{The big-$O$ hierarchy}}
+You should be familiar with the following underlined (and strictly increasing) \emph{hierarchy} of big-$O$s (and with the proofs: look at the ratios and consider the behavior for $n$ going to infinity, cf. $\limsup$-equivalence), where $b>1$, $\epsilon$ with $0<\epsilon<1$, $k>0$, and $d>1$ are fixed constants:
+\begin{tabbing}
+$\,\,\,\,\,\,\,\,\,\,\,\,\,\,$\=$\bullet$ {\color{purple}{any constant is$\,\,\,\,\,\,\,\,\,\,\,$}}\={\color{purple}{$\underline{O(1)}$}}\\
+\>$\bullet$ {\color{purple}{$1$ is}}\>{\color{purple}{$\underline{O(\log(\log(n)))}\,\,\,\,\,\,\,$}}\={\color{red}{but $\log(\log(n))$ is not $O(1)$}}\\
+\>$\bullet$ {\color{purple}{$\log(\log(n))$ is}}\>{\color{purple}{$\underline{O(\log(n))}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,$}}\={\color{red}{but $\log(n)$ is not $O(\log(\log(n)))$}}\\
+\>$\bullet$ {\color{purple}{$(\log(n))^k$ is}}\>{\color{purple}{\underline{$O(n^\epsilon)$}}}\>{\color{red}{but $n^\epsilon$ is not $O((\log(n))^k)$}}\\
+\>$\bullet$ {\color{purple}{$n^\epsilon$ is}}\>{\color{purple}{\underline{$O(n)$}}}\>{\color{red}{but $n$ is not $O(n^\epsilon)$}}\\
+\>$\bullet$ {\color{purple}{$n$ is}}\>{\color{purple}{\underline{$O(n\log(\log(n)))$}}}\>{\color{red}{but $n\log(\log(n))$ is not $O(n)$}}\\
+\>$\bullet$ {\color{purple}{$n\log(\log(n))$ is}}\>{\color{purple}{\underline{$O(n\log(n))$}}}\>{\color{red}{but $n\log(n)$ is not $O(n\log(\log(n)))$}}\\
+\>$\bullet$ {\color{purple}{$n(\log(n))^k$ is}}\>{\color{purple}{\underline{$O(n^{d})$}}}\>{\color{red}{but $n^{d}$ is not $O(n(\log(n))^k)$}}\\
+\>$\bullet$ {\color{purple}{$n^{d}$}} is\>{\color{blue}{\underline{$O(b^n)$}}}\>{\color{red}{but $b^n$ is not $O(n^{d})$}} \\
+\>$\bullet$ {\color{blue}{$b^n$ is}}\>{\color{blue}{\underline{$O(n!)$}}}\>{\color{red}{but $n!$ is not $O(b^n)$}}\\
+\>$\bullet$ {\color{blue}{$n!$ is}}\>{\color{blue}{\underline{$O(n^n)$}}}\>{\color{red}{but $n^n$ is not $O(n!)$}}, \=whereas {\color{magenta}{$n^n$ \underline{\bf is} $O((n!)^2)$}}\\
+\>$\bullet$ {\color{purple}{$\log(n!)$ is}}\>{\color{purple}{$O(\log(n^n))$}}\>\>{\color{magenta}{\underline{\bf and} $\log(n^n)$ is $O(\log(n!))$}}\\
+\end{tabbing}
+To prove the statements about $n^d$ versus $b^n$ use $n^d=b^{d\log_b(n)}$ and observe that the latter's logarithmic in $n$ exponent $d\log_b(n)$ grows much slower than the exponent $n$ of~$b^n$.
+
+From {\color{blue}{$n!$}} is {\color{blue}{$O(n^n)$}} (and the earlier discussion on logarithms) it follows that {\color{purple}{$\log(n!)$}} is {\color{purple}{$O(\log(n^n))=O(n\log(n))$}}. Conversely, from the fact that {\color{blue}{$n^n$}} is {\color{blue}{$O((n!)^2)$}} (this follows from $n^n\le(n!)^2$, which is easily seen to be the case\footnote{
+Because $(n!)^2=\prod_{i=1}^ni(n-i+1)$, to prove that $n^n\le(n!)^2$ it suffices to prove that $n\le i(n-i+1)$ for $1\le i\le n$. This follows from the fact that the parabola $-i^2+i(n+1)-n$ is zero for $i=1,n$ and positive on the interval $1<i<n$.
+%\vspace{10pt}\begin{tikzpicture}[scale=0.09]
+%\draw (-1,0) -- (6,0);%node[pos=0.09]{1} node[pos=0.36]{$n$}; 
+%\draw (0,-4.5) -- (0,2.5);
+%\draw [black, thick, domain=0:5] plot (\x, {-4+5*\x-\x*\x});
+%\end{tikzpicture}
+}) it follows that {\color{purple}{$\log(n^n)=n\log(n)$}} is {\color{purple}{$O(\log((n!)^2))=O(\log(n!))$}}. We conclude that  {\color{purple}{$n\log(n)$}} is {\color{purple}{$\Theta(\log(n!))$}}.
+Here everything in {\color{purple}{purple}} is called \emph{polynomial time} --- traditionally ``good'' --- and blue is \emph{exponential time} or worse --- traditionally ``bad''.\\
+\par\noindent
+\vspace{2pt}
+\par\noindent
+{\bf{Computational complexity}}
+As we have seen during the lectures, the big-$O$ notation is a succinct way to catch the essence of the number of operations to be carried out by an algorithm to solve a certain problem.
+Here it is assumed that a ``problem'' is interpreted as an infinite set of problem instances, where each problem instance has a certain well defined size.
+For instance: ``sorting integers'' is a problem, and any integer sequence of length $n$ may be regarded as an instance of length~$n$ of the sorting integers problem; ``integer addition'' and ``integer multiplication'' are problems and any pair of $n$-bit integers may be regarded as an instance of length $n$ of the integer addition or of the integer multiplication problem.
+Any instance of length $n$ of the sorting problem can be solved in time $O(n\log(n))$, any instance of length $n$ of the integer addition problem can be solved in time $O(n)$, any instance of length $n$ of the integer multiplication problem can be solved in time $O(n^2)$ using schoolbook multiplication, in time $O(n^{\log_2(3)})$ using Karatsuba multiplication. Since earlier this year it is known that it can be done in time $O(n\log(n))$ (Harley and van der Hoeven, cf. September 27 lecture notes). No one knows if multiplication can be done faster. 
+
+We refer to the expressions in the big-$O$'s as the ``complexity'' (or ``time complexity'', or ``computational complexity'') of the problem at hand, or we say that the problem belongs to the ``complexity class'' $O(\ldots)$ for whatever $\ldots$ is applicable:
+``the complexity of sorting is $n\log(n)$'', ``the complexity of addition is linear, but no one knows yet what the complexity is of multiplication''\footnote{Observe that each $\delta,k\in{\bf R}_{>0}$ gives rise to unique complexity classes $O(n^\delta)$, $O((\log(n))^k)$, and $O(n^\delta(\log(n))^k)$ and thus that there are uncountably many different complexity classes.}. Below a few common complexity classes are listed (where the $O$s may be replaced by $\Theta$s, except it is more common to use $O$s), along with common problems that belong to that complexity class:
+\begin{itemize}
+\item $O(1)$ (``constant'') to retrieve the largest item in a sorted list of any size, or to compute the parity of a number given in its binary representation;
+\item $O(\log(n))$ (``logarithmic'') for binary search in a sorted list of $n$ items (if the list allows random access, for whatever that is worth);
+\item $O(n)$ (``linear'') for linear search in a list of $n$ items that is not necessarily sorted (requiring only sequential access);
+\item $O(n\log(n))$ (``n log n'') to sort a list of $n$ items using merge sort or heapsort\footnote{If we can only make ``binary decisions'' such as comparing items, we need at least $\log(n!)$ steps to be able to distinguish between all $n!$ possible distinct outcomes of the problem of sorting a list of $n$ items. Because $\log(n!)$ is of the same order as $n\log(n)$ sorting cannot be done faster than order $n\log(n)$.} but
+\item $O(n^2)$ (``quadratic'') to do it using bubble sort or in the worst case of quick sort;
+\item $O(n^3)$ (``cubic'') to multiply two $n\times n$ matrices (note that the input length in that case is $n^2$, so as a function of the input length it is ``only'' a degree $1.5$ algorithm and calling it cubic is a  bit misleading -- but traditional) and, a rather extreme example:
+\item $O(n^{12})$ (``exponent twelve'') for the original 2002 AKS primality-proving method (``the three Indians method'' -- Indian indians, not American indians) to establish if an $n$-bit integer is prime or composite (this has in the meantime been improved to $O(n^6)$ (``exponent six'')). This should be contrasted with the ``practical'' method that does not give absolute certainty but that, for randomly generated numbers of hundreds of bits, has not failed yet and that runs in time $O(n^3)$ if schoolbook multiplication is uses (or $O(n^2\log(n))$ with the latest $O(n\log(n))$ multiplication method). 
+\end{itemize}
+\par\noindent
+{\bf{The class {\bf P} of polynomial time solvable problems}}
+Above we saw examples of problems that can be solved in time~$O(n^d)$, i.e., for which there exists an algorithm and a fixed constant $d$ such that for any problem instance of size~$n$ (i.e., the length of the input to the algorithm\footnote{In our input length estimates we disregard the sizes of the numbers involved. For the problems and algorithms considered in this course that will be adequate. For more complex problems a more precise approach must be used.}), the algorithm will produce a solution in a number of operations that is $O(n^d)$.
+In the early 1970s it became customary to use the term \emph{polynomial time} for such algorithms.
+If a problem can be solved by a polynomial time algorithm, the problem is polynomial time solvable (has \emph{polynomial complexity}), and the problem is said to belong to the class {\bf P} of polynomial time solvable problems:
+{\color{red}{a problem~$X$ can be solved in polynomial time if there is an algorithm~$A$ and a fixed constant $d$ such that for all $n$ any instance of size~$n$ of problem~$X$ can be solved by~$A$ in $O(n^d)$ operations}}:
+$$\exists A\,\exists d\,\forall n\,\forall {\text{ instances $I_n$ of size $n$ of $X$, $A$ solves $I_n$ in time $O(n^d)$}}. $$
+Note the importance of the order of the quantified variables~$A$, $d$, $n$ and~$I_n$: reversing the order of the existentially quantified~$d$ and the universally quantified~$n$ and $I_n$ turns it into a useless property (it would always hold because it would become possible to choose~$d$ depending on~$n$ or $I_n$).
+
+The existence of a polynomial time algorithm for a problem does not imply that each algorithm to solve the problem runs in polynomial time:
+there are always plenty of ways to do things in a less clever manner that may take many more operations.
+But, once a polynomial time algorithm for a problem has been found, the problem is, more or less and at least from a theoretical point of view, considered to be \emph{solved}, because it means that the number of operations required to find a solution can be nicely controlled by a ``decent'' polynomial function: of course solutions require more operations when larger problem instances are solved, but the growth of the number of operations is limited by a polynomial function and therefore thought to be reasonably well under control.
+
+Everything that is purple in the ``big-$O$ hierarchy'' above is polynomial time, assuming that the input length is~$n$.
+Problems in the class~{\bf P} are traditionally referred to as \emph{tractable} problems.
+But notice that the fixed exponent $d$ in the expression that upper bounds the number of operations (up to a constant) may be \underline{any} nonnegative constant: one may wonder how ``tractable'' a polynomial time solution is for which $d=12$.
+
+These nicely behaving polynomial time solvable problems are very much unlike nasty problems for which polynomial time solutions are not known to exist and for which the best algorithms known require at least \emph{exponential time}: the blue bulleted expressions in the ``big-$O$ hierarchy'' represent exponential time and worse (see below) run times, again assuming that the input length is~$n$.\\
+\par\noindent
+{\bf{Problems not known to be in {\bf{P}}}}
+A simple example of a problem for which no polynomial time solution is known to exist is the knapsack problem: given a set~$S$ of $n$ items, each item in~$S$ with a value and a weight, the ``best'' subset of items in~$S$ must be found that satisfies a maximal weight restriction:
+\begin{quote}
+let $S=\{s_1,s_2,\ldots,s_n\}$ be some set of items, let $v, w: S\rightarrow{\bf R}_{\ge 0}$ be value ($v$) and weight ($w$) functions, and let $W\in{\bf R}_{\ge 0}$ be a maximal weight restriction. Find a subset $T\subseteq S$ such that $$\Big(\sum_{t\in T}v(t)\Big)\,\,\,\text{is maximized, while}\,\,\,\Big(\sum_{t\in T}w(t)\Big)\le W$$
+\end{quote}
+A solution would be to try all $2^n$ possible subsets $T$ of $S$ (while verifying the maximal weight $W$ restriction) and selecting the one of highest value, but~$2^n$ is exponential time.
+It is often more convenient to replace the above \emph{optimization problem} by the --- mostly equivalent\footnote{Because the optimization problem can be solved by solving polynomially many decision problems (using binary search on potential $V$-values). The same comment applies to other optimization problems (such as traveling salesman or chromatic index).} --- \emph{decision problem} of deciding if for some specified value $V\in{\bf R}_{\ge 0}$ there exists a subset $T\subseteq S$ such that $\Big(\sum_{t\in T}v(t)\Big)\ge V$ and $\Big(\sum_{t\in T}w(t)\Big)\le W$ (and, if so, to provide such a subset~$T$).
+Note that it can easily (i.e., in polynomial time, even in linear time) be checked if any proposed solution (i.e., some subset~$T$) to the latter decision problem is correct (i.e., satisfies the two conditions). How to efficiently construct such a solution, however, is unclear. In particular it is not known if exponential time is required.
+
+Another example is the traveling salesman problem, where a bounded length tour must be found among $n$ cities: again a proposed solution can easily be checked, but finding one still escapes us, despite decades of intensive research.
+Note that a solution can be found in $O(n!)$ operations by trying all possible tours.
+Finding the chromatic index of a graph (the smallest number of colors required to color all vertices in the graph in a such a way that two neighbouring vertices have different colors) is -- for the moment at least -- not doable in polynomial time either; but checking if a given coloring satisfies a given bound is easily done (i.e., in polynomial time).
+These examples should be contrasted with problem such as ``minimal spanning tree'' or ``shortest path'' which are both easily solvable in polynomial time: minimal spanning tree even by a greedy algorithm that consistently selects a new edge of lowest weight without closing a cycle.\\
+\par\noindent
+{\bf{The class {\bf{NP}}, and {\bf{P}} versus {\bf{NP}}}}
+Occasionally a polynomial time solution is found for one of the nasty problems, but after a promising start in the 1970s this soon happened less and less frequently (once the low-hanging fruit was gone) and occurs only very rarely these days (this should not be interpreted as a reason to stop looking!).
+The separation between the polynomial time solvable problems and those for which a polynomial time solution is not known to exist (yet?) persists to the present day.
+A particular question that is found to be of interest (and that will earn you a one million US\$ prize if you solve it) is the {\bf P} versus {\bf NP} problem, namely if {\bf P} is properly contained in {\bf NP} or if {\bf P} and {\bf NP} are the same.
+But, what is {\bf NP}? Probably not what you think it is, as explained in the next paragraph.
+
+{\color{red}{The class {\bf NP} consists of those problems for which the correctness of a proposed solution can be verified in polynomial time}}: for instance, the decision versions of the knapsack and traveling salesman problems belong to {\bf NP}.
+Note that {\bf NP} {\bf does not stand for ``not-P''}: it refers to the class of algorithms that can be solved in \emph{{\color{red}{n}}ondeterministic {\color{red}{p}}olynomial time}.
+Here ``nondeterminism'' refers to the unspecified way in which a proposed solution is found: it may have been found by guesswork or any other way one sees fit (for instance, a ``nondeterministic'' one).
+
+The difference between {\bf P} and {\bf NP} is the same as the difference between {\bf finding} a solution to a problem (namely in polynomial time) and {\bf verifying} (in polynomial time) that a given solution is correct -- without worrying at all in the latter case how the solution was found.
+It is clear that all problems that belong to {\bf P} also belong to {\bf NP}.
+It has not been proved yet that there are problems that belong to {\bf NP} but for which no polynomial time solution can exist (which would prove that {\bf P} $\ne$ {\bf NP} and thus that {\bf P} is properly contained in {\bf NP}) and neither has it been proved that all problems in {\bf NP} allow a polynomial time solution (which would prove that {\bf P} $=$ {\bf NP}).
+Some argue that based on our failure to prove that {\bf P} $=$ {\bf NP}, despite the aforementioned decades of indeed intensive research, {\bf P} $\ne$ {\bf NP} is a safer bet than {\bf P} $=$ {\bf NP}.\\
+\par\noindent
+{\bf{NP-complete problems}}
+The above statement ``neither has it been proved that {\color{red}{all}} problems in {\bf NP} allow a polynomial time solution'' sounds like a hopeless exercise, but this is what makes this field interesting:
+it has been shown that there are problems in {\bf NP}, the so-called \emph{NP-complete problems}, that have the following intriguing property:
+if a polynomial time solution is constructed for just a \underline{single} NP-complete problem (not for a single problem instance, of course...), then all problems in {\bf NP} are polynomial time solvable.
+The first problem shown\footnote{Independently by two researchers in the very early 1970s: Stephen Cook and Leonard Levin.} to be NP-complete was the \emph{satisfiability problem} (finding an assignment of values to logical values such that a conjunction of disjunctions of the logical values (or their negations) evaluates to true), by showing that any problem~$X$ in {\bf NP} can be \emph{reduced in polynomial time} to the satisfiability problem (this means that solving~$X$ can be done in polynomial time, assuming the operations spent on solving one or more (but at most polynomially many) satisfiability problems are not counted). Other examples are the (decision versions of) the knapsack problem and the traveling \textbf{salesman problem.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
+
+
 
 
 
